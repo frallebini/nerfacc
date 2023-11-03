@@ -2,8 +2,10 @@
 Copyright (c) 2022 Ruilong Li, UC Berkeley.
 """
 
+import warnings
+warnings.simplefilter("ignore", UserWarning)
+
 import argparse
-import math
 import pathlib
 import time
 
@@ -15,7 +17,7 @@ import tqdm
 from lpips import LPIPS
 from radiance_fields.ngp import NGPRadianceField
 
-from examples.utils import (
+from utils import (
     MIPNERF360_UNBOUNDED_SCENES,
     NERF_SYNTHETIC_SCENES,
     render_image_with_occgrid,
@@ -121,7 +123,7 @@ estimator = OccGridEstimator(
     roi_aabb=aabb, resolution=grid_resolution, levels=grid_nlvl
 ).to(device)
 
-# setup the radiance field we want to train.
+# setup the radiance field we want to train
 grad_scaler = torch.cuda.amp.GradScaler(2**10)
 radiance_field = NGPRadianceField(aabb=estimator.aabbs[-1]).to(device)
 optimizer = torch.optim.Adam(
@@ -246,17 +248,15 @@ for step in range(max_steps + 1):
                 psnr = -10.0 * torch.log(mse) / np.log(10.0)
                 psnrs.append(psnr.item())
                 lpips.append(lpips_fn(rgb, pixels).item())
-                # if i == 0:
-                #     imageio.imwrite(
-                #         "rgb_test.png",
-                #         (rgb.cpu().numpy() * 255).astype(np.uint8),
-                #     )
-                #     imageio.imwrite(
-                #         "rgb_error.png",
-                #         (
-                #             (rgb - pixels).norm(dim=-1).cpu().numpy() * 255
-                #         ).astype(np.uint8),
-                #     )
+                if i % 10 == 0:
+                    imageio.imwrite(
+                        f"img/rgb_test_{i}.png",
+                        (rgb.cpu().numpy() * 255).astype(np.uint8),
+                    )
+                    imageio.imwrite(
+                        f"img/rgb_error_{i}.png",
+                        ((rgb - pixels).norm(dim=-1).cpu().numpy() * 255).astype(np.uint8),
+                    )
         psnr_avg = sum(psnrs) / len(psnrs)
         lpips_avg = sum(lpips) / len(lpips)
         print(f"evaluation: psnr_avg={psnr_avg}, lpips_avg={lpips_avg}")
