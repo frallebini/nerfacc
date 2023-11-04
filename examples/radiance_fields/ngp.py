@@ -81,6 +81,7 @@ class NGPRadianceField(torch.nn.Module):
         geo_feat_dim: int = 15,
         n_levels: int = 16,
         log2_hashmap_size: int = 19,
+        separate_encoding: bool = False,
     ) -> None:
         super().__init__()
         if not isinstance(aabb, torch.Tensor):
@@ -116,25 +117,40 @@ class NGPRadianceField(torch.nn.Module):
                 },
             )
 
-        self.mlp_base = tcnn.NetworkWithInputEncoding(
-            n_input_dims=num_dim,
-            n_output_dims=1 + self.geo_feat_dim,
-            encoding_config={
-                "otype": "HashGrid",
-                "n_levels": n_levels,
-                "n_features_per_level": 2,
-                "log2_hashmap_size": log2_hashmap_size,
-                "base_resolution": base_resolution,
-                "per_level_scale": per_level_scale,
-            },
-            network_config={
-                "otype": "FullyFusedMLP",
-                "activation": "ReLU",
-                "output_activation": "None",
-                "n_neurons": 64,
-                "n_hidden_layers": 1,
-            },
-        )
+        encoding_config={
+            "otype": "HashGrid",
+            "n_levels": n_levels,
+            "n_features_per_level": 2,
+            "log2_hashmap_size": log2_hashmap_size,
+            "base_resolution": base_resolution,
+            "per_level_scale": per_level_scale,
+        }
+        network_config={
+            "otype": "FullyFusedMLP",
+            "activation": "ReLU",
+            "output_activation": "None",
+            "n_neurons": 64,
+            "n_hidden_layers": 1,
+        }
+        if separate_encoding:
+            encoding = tcnn.Encoding(
+                n_input_dims=num_dim, 
+                encoding_config=encoding_config,
+            )
+            network = tcnn.Network(
+                n_input_dims=encoding.n_output_dims, 
+                n_output_dims=1 + self.geo_feat_dim, 
+                network_config=network_config,
+            )
+            self.mlp_base = torch.nn.Sequential(encoding, network)
+        else:
+            self.mlp_base = tcnn.NetworkWithInputEncoding(
+                n_input_dims=num_dim,
+                n_output_dims=1 + self.geo_feat_dim,
+                encoding_config=encoding_config,
+                network_config=network_config,
+            )
+        
         if self.geo_feat_dim > 0:
             self.mlp_head = tcnn.Network(
                 n_input_dims=(

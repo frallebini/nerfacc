@@ -125,7 +125,9 @@ estimator = OccGridEstimator(
 
 # setup the radiance field we want to train
 grad_scaler = torch.cuda.amp.GradScaler(2**10)
-radiance_field = NGPRadianceField(aabb=estimator.aabbs[-1]).to(device)
+radiance_field = NGPRadianceField(
+    aabb=estimator.aabbs[-1], separate_encoding=False
+).to(device)
 optimizer = torch.optim.Adam(
     radiance_field.parameters(), lr=1e-2, eps=1e-15, weight_decay=weight_decay
 )
