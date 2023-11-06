@@ -5,6 +5,9 @@ Copyright (c) 2022 Ruilong Li, UC Berkeley.
 import warnings
 warnings.simplefilter("ignore", UserWarning)
 
+import os
+os.environ["WANDB_SILENT"] = "true"
+
 import argparse
 import pathlib
 import time
@@ -14,9 +17,10 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 import tqdm
+import wandb
+
 from lpips import LPIPS
 from radiance_fields.ngp import NGPRadianceField
-
 from utils import (
     MIPNERF360_UNBOUNDED_SCENES,
     NERF_SYNTHETIC_SCENES,
@@ -49,6 +53,12 @@ parser.add_argument(
     help="which scene to use",
 )
 args = parser.parse_args()
+
+wandb.init(
+        entity="frallebini",
+        project="nerfacc",
+        config=args,
+)
 
 device = "cuda:0"
 set_random_seed(42)
@@ -126,7 +136,7 @@ estimator = OccGridEstimator(
 # setup the radiance field we want to train
 grad_scaler = torch.cuda.amp.GradScaler(2**10)
 radiance_field = NGPRadianceField(
-    aabb=estimator.aabbs[-1], separate_encoding=False
+    aabb=estimator.aabbs[-1], separate_encoding=True
 ).to(device)
 optimizer = torch.optim.Adam(
     radiance_field.parameters(), lr=1e-2, eps=1e-15, weight_decay=weight_decay
@@ -153,7 +163,7 @@ lpips_fn = lambda x, y: lpips_net(lpips_norm_fn(x), lpips_norm_fn(y)).mean()
 
 # training
 tic = time.time()
-for step in range(max_steps + 1):
+for step in tqdm.tqdm(range(max_steps + 1), "train step"):
     radiance_field.train()
     estimator.train()
 
@@ -191,7 +201,7 @@ for step in range(max_steps + 1):
         continue
 
     if target_sample_batch_size > 0:
-        # dynamic batch size for rays to keep sample batch size constant.
+        # dynamic batch size for rays to keep sample batch size constant
         num_rays = len(pixels)
         num_rays = int(
             num_rays * (target_sample_batch_size / float(n_rendering_samples))
@@ -202,23 +212,23 @@ for step in range(max_steps + 1):
     loss = F.smooth_l1_loss(rgb, pixels)
 
     optimizer.zero_grad()
-    # do not unscale it because we are using Adam.
+    # do not unscale it because we are using Adam
     grad_scaler.scale(loss).backward()
     optimizer.step()
     scheduler.step()
 
-    if step % 10000 == 0:
-        elapsed_time = time.time() - tic
+    if step % 100 == 0:
         loss = F.mse_loss(rgb, pixels)
         psnr = -10.0 * torch.log(loss) / np.log(10.0)
-        print(
-            f"elapsed_time={elapsed_time:.2f}s | step={step} | "
-            f"loss={loss:.5f} | psnr={psnr:.2f} | "
-            f"n_rendering_samples={n_rendering_samples:d} | num_rays={len(pixels):d} | "
-            f"max_depth={depth.max():.3f} | "
-        )
+        wandb.log({
+            "train/loss": loss,
+            "train/psnr": psnr,
+        }, step=step)
 
     if step > 0 and step % max_steps == 0:
+        elapsed_time = time.time() - tic
+        wandb.log({"train/elapsed_time": elapsed_time})
+
         # evaluation
         radiance_field.eval()
         estimator.eval()
@@ -226,7 +236,7 @@ for step in range(max_steps + 1):
         psnrs = []
         lpips = []
         with torch.no_grad():
-            for i in tqdm.tqdm(range(len(test_dataset))):
+            for i in tqdm.tqdm(range(len(test_dataset)), "test sample"):
                 data = test_dataset[i]
                 render_bkgd = data["color_bkgd"]
                 rays = data["rays"]
@@ -251,14 +261,13 @@ for step in range(max_steps + 1):
                 psnrs.append(psnr.item())
                 lpips.append(lpips_fn(rgb, pixels).item())
                 if i % 10 == 0:
-                    imageio.imwrite(
-                        f"img/rgb_test_{i}.png",
-                        (rgb.cpu().numpy() * 255).astype(np.uint8),
-                    )
-                    imageio.imwrite(
-                        f"img/rgb_error_{i}.png",
-                        ((rgb - pixels).norm(dim=-1).cpu().numpy() * 255).astype(np.uint8),
-                    )
+                    rendered = (rgb.cpu().numpy() * 255).astype(np.uint8)
+                    gt = f"{args.data_root}/{args.scene}/test/r_{i}.png"
+                    wandb.log({f"test/{i}": [wandb.Image(gt), wandb.Image(rendered)]})
+        
         psnr_avg = sum(psnrs) / len(psnrs)
         lpips_avg = sum(lpips) / len(lpips)
-        print(f"evaluation: psnr_avg={psnr_avg}, lpips_avg={lpips_avg}")
+        wandb.log({
+            "test/psnr_avg": psnr_avg,
+            "test/lpips_avg": lpips_avg,
+        })

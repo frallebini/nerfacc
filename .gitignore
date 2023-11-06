@@ -117,6 +117,9 @@ venv.bak/
 # vscode
 .vsocde
 
+# weights & biases
+wandb
+
 outputs/
 data
 
