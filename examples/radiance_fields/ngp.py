@@ -9,6 +9,8 @@ import torch
 from torch.autograd import Function
 from torch.cuda.amp import custom_bwd, custom_fwd
 
+from radiance_fields.encoding import MultiResHashGrid
+
 try:
     import tinycudann as tcnn
 except ImportError as e:
@@ -81,7 +83,8 @@ class NGPRadianceField(torch.nn.Module):
         geo_feat_dim: int = 15,
         n_levels: int = 16,
         log2_hashmap_size: int = 19,
-        separate_encoding: bool = False,
+        use_cuda_encoding: bool = False,
+        use_torch_encoding: bool = False,
     ) -> None:
         super().__init__()
         if not isinstance(aabb, torch.Tensor):
@@ -132,13 +135,28 @@ class NGPRadianceField(torch.nn.Module):
             "n_neurons": 64,
             "n_hidden_layers": 1,
         }
-        if separate_encoding:
+        if use_cuda_encoding:
             encoding = tcnn.Encoding(
                 n_input_dims=num_dim, 
                 encoding_config=encoding_config,
             )
             network = tcnn.Network(
                 n_input_dims=encoding.n_output_dims, 
+                n_output_dims=1 + self.geo_feat_dim, 
+                network_config=network_config,
+            )
+            self.mlp_base = torch.nn.Sequential(encoding, network)
+        elif use_torch_encoding:
+            encoding = MultiResHashGrid(
+                num_dim,
+                encoding_config["n_levels"],
+                encoding_config["n_features_per_level"],
+                encoding_config["log2_hashmap_size"],
+                encoding_config["base_resolution"],
+                max_resolution,
+            )
+            network = tcnn.Network(
+                n_input_dims=encoding.output_dim, 
                 n_output_dims=1 + self.geo_feat_dim, 
                 network_config=network_config,
             )
