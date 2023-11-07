@@ -120,6 +120,9 @@ venv.bak/
 # weights & biases
 wandb
 
+# checkpoints
+ckpts
+
 outputs/
 data
 

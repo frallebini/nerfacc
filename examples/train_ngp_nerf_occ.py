@@ -9,7 +9,6 @@ import os
 os.environ["WANDB_SILENT"] = "true"
 
 import argparse
-import pathlib
 import time
 
 import imageio
@@ -18,8 +17,9 @@ import torch
 import torch.nn.functional as F
 import tqdm
 import wandb
-
 from lpips import LPIPS
+from pathlib import Path
+
 from radiance_fields.ngp import NGPRadianceField
 from utils import (
     MIPNERF360_UNBOUNDED_SCENES,
@@ -34,8 +34,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument(
     "--data_root",
     type=str,
-    # default=str(pathlib.Path.cwd() / "data/360_v2"),
-    default=str(pathlib.Path.cwd() / "data/nerf_synthetic"),
+    # default=str(Path.cwd() / "data/360_v2"),
+    default=str(Path.cwd() / "data/nerf_synthetic"),
     help="the root dir of the dataset",
 )
 parser.add_argument(
@@ -52,11 +52,20 @@ parser.add_argument(
     choices=NERF_SYNTHETIC_SCENES + MIPNERF360_UNBOUNDED_SCENES,
     help="which scene to use",
 )
+parser.add_argument(
+    "--encoding",
+    type=str,
+    default="combo",
+    choices=["combo", "cuda", "torch"],
+    help="which type of multi-resolution hash grid encoding to use",
+)
 args = parser.parse_args()
 
+run_name = f"{args.scene}_{args.encoding}"
 wandb.init(
         entity="frallebini",
         project="nerfacc",
+        name=run_name,
         config=args,
 )
 
@@ -135,9 +144,13 @@ estimator = OccGridEstimator(
 
 # setup the radiance field we want to train
 grad_scaler = torch.cuda.amp.GradScaler(2**10)
-radiance_field = NGPRadianceField(
-    aabb=estimator.aabbs[-1], use_torch_encoding=True
-).to(device)
+if args.encoding == "cuda":
+    radiance_field = NGPRadianceField(aabb=estimator.aabbs[-1], use_cuda_encoding=True)
+elif args.encoding == "torch":
+    radiance_field = NGPRadianceField(aabb=estimator.aabbs[-1], use_torch_encoding=True)
+else:
+    radiance_field = NGPRadianceField(aabb=estimator.aabbs[-1])
+radiance_field = radiance_field.to(device)
 optimizer = torch.optim.Adam(
     radiance_field.parameters(), lr=1e-2, eps=1e-15, weight_decay=weight_decay
 )
@@ -258,16 +271,18 @@ for step in tqdm.tqdm(range(max_steps + 1), "train step"):
                 )
                 mse = F.mse_loss(rgb, pixels)
                 psnr = -10.0 * torch.log(mse) / np.log(10.0)
+                
                 psnrs.append(psnr.item())
                 lpips.append(lpips_fn(rgb, pixels).item())
                 if i % 10 == 0:
                     rendered = (rgb.cpu().numpy() * 255).astype(np.uint8)
                     gt = f"{args.data_root}/{args.scene}/test/r_{i}.png"
                     wandb.log({f"test/{i}": [wandb.Image(gt), wandb.Image(rendered)]})
-        
         psnr_avg = sum(psnrs) / len(psnrs)
         lpips_avg = sum(lpips) / len(lpips)
         wandb.log({
             "test/psnr_avg": psnr_avg,
             "test/lpips_avg": lpips_avg,
         })
+        Path("ckpts").mkdir(exist_ok=True)
+        torch.save(radiance_field.state_dict(), f"ckpts/{run_name}.pt")

@@ -136,6 +136,7 @@ class NGPRadianceField(torch.nn.Module):
             "n_hidden_layers": 1,
         }
         if use_cuda_encoding:
+            # separate Tiny CUDA encoding
             encoding = tcnn.Encoding(
                 n_input_dims=num_dim, 
                 encoding_config=encoding_config,
@@ -147,6 +148,7 @@ class NGPRadianceField(torch.nn.Module):
             )
             self.mlp_base = torch.nn.Sequential(encoding, network)
         elif use_torch_encoding:
+            # separate pure PyTorch encoding
             encoding = MultiResHashGrid(
                 num_dim,
                 encoding_config["n_levels"],
@@ -162,6 +164,7 @@ class NGPRadianceField(torch.nn.Module):
             )
             self.mlp_base = torch.nn.Sequential(encoding, network)
         else:
+            # efficient Encoding+Network combo
             self.mlp_base = tcnn.NetworkWithInputEncoding(
                 n_input_dims=num_dim,
                 n_output_dims=1 + self.geo_feat_dim,
