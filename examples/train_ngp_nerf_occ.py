@@ -20,6 +20,7 @@ import wandb
 from lpips import LPIPS
 from pathlib import Path
 
+from nerfacc.estimators.occ_grid import OccGridEstimator
 from radiance_fields.ngp import NGPRadianceField
 from utils import (
     MIPNERF360_UNBOUNDED_SCENES,
@@ -28,7 +29,6 @@ from utils import (
     render_image_with_occgrid_test,
     set_random_seed,
 )
-from nerfacc.estimators.occ_grid import OccGridEstimator
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -70,7 +70,7 @@ wandb.init(
 )
 
 device = "cuda:0"
-set_random_seed(42)
+# set_random_seed(42)
 
 if args.scene in MIPNERF360_UNBOUNDED_SCENES:
     from datasets.nerf_360_v2 import SubjectLoader
@@ -143,14 +143,28 @@ estimator = OccGridEstimator(
 ).to(device)
 
 # setup the radiance field we want to train
-grad_scaler = torch.cuda.amp.GradScaler(2**10)
 if args.encoding == "cuda":
     radiance_field = NGPRadianceField(aabb=estimator.aabbs[-1], use_cuda_encoding=True)
 elif args.encoding == "torch":
     radiance_field = NGPRadianceField(aabb=estimator.aabbs[-1], use_torch_encoding=True)
+    #################### SAVE INIT #####################
+    # ckpt = {
+    #     "radiance_field": radiance_field.state_dict(),
+    #     "estimator": estimator.state_dict(),
+    # }
+    # torch.save(ckpt, "ckpts/init_B.pt")
+    ####################################################
 else:
     radiance_field = NGPRadianceField(aabb=estimator.aabbs[-1])
 radiance_field = radiance_field.to(device)
+
+############################## LOAD INIT ####################################
+# sd = torch.load("/media/data7/fballerini/nerfacc/examples/ckpts/init_A.pt")
+# estimator.load_state_dict(sd["estimator"])
+# radiance_field.load_state_dict(sd["radiance_field"])
+#############################################################################
+
+grad_scaler = torch.cuda.amp.GradScaler(2**10)
 optimizer = torch.optim.Adam(
     radiance_field.parameters(), lr=1e-2, eps=1e-15, weight_decay=weight_decay
 )
@@ -284,5 +298,10 @@ for step in tqdm.tqdm(range(max_steps + 1), "train step"):
             "test/psnr_avg": psnr_avg,
             "test/lpips_avg": lpips_avg,
         })
+        
         Path("ckpts").mkdir(exist_ok=True)
-        torch.save(radiance_field.state_dict(), f"ckpts/{run_name}.pt")
+        ckpt = {
+            "radiance_field": radiance_field.state_dict(),
+            "estimator": estimator.state_dict(),
+        }
+        torch.save(ckpt, f"ckpts/{run_name}.pt")

@@ -2,6 +2,8 @@
 Copyright (c) 2022 Ruilong Li, UC Berkeley.
 """
 
+import random
+import sys
 from typing import Callable, List, Union
 
 import numpy as np
@@ -118,6 +120,7 @@ class NGPRadianceField(torch.nn.Module):
                         # {"otype": "Identity", "n_bins": 4, "degree": 4},
                     ],
                 },
+                seed=random.randint(0, sys.maxsize),
             )
 
         encoding_config={
@@ -140,11 +143,13 @@ class NGPRadianceField(torch.nn.Module):
             encoding = tcnn.Encoding(
                 n_input_dims=num_dim, 
                 encoding_config=encoding_config,
+                seed=random.randint(0, sys.maxsize),
             )
-            network = tcnn.Network(
+            network = tcnn.Network(  # "density MLP" (see paper)
                 n_input_dims=encoding.n_output_dims, 
                 n_output_dims=1 + self.geo_feat_dim, 
                 network_config=network_config,
+                seed=random.randint(0, sys.maxsize),
             )
             self.mlp_base = torch.nn.Sequential(encoding, network)
         elif use_torch_encoding:
@@ -157,10 +162,11 @@ class NGPRadianceField(torch.nn.Module):
                 encoding_config["base_resolution"],
                 max_resolution,
             )
-            network = tcnn.Network(
+            network = tcnn.Network(  # "density MLP" (see paper)
                 n_input_dims=encoding.output_dim, 
                 n_output_dims=1 + self.geo_feat_dim, 
                 network_config=network_config,
+                seed=random.randint(0, sys.maxsize),
             )
             self.mlp_base = torch.nn.Sequential(encoding, network)
         else:
@@ -170,10 +176,11 @@ class NGPRadianceField(torch.nn.Module):
                 n_output_dims=1 + self.geo_feat_dim,
                 encoding_config=encoding_config,
                 network_config=network_config,
+                seed=random.randint(0, sys.maxsize),
             )
         
         if self.geo_feat_dim > 0:
-            self.mlp_head = tcnn.Network(
+            self.mlp_head = tcnn.Network(  # "color MLP" (see paper)
                 n_input_dims=(
                     (
                         self.direction_encoding.n_output_dims
@@ -190,6 +197,7 @@ class NGPRadianceField(torch.nn.Module):
                     "n_neurons": 64,
                     "n_hidden_layers": 2,
                 },
+                seed=random.randint(0, sys.maxsize),
             )
 
     def query_density(self, x, return_feat: bool = False):
