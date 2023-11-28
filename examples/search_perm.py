@@ -18,8 +18,8 @@ from utils import render_image_with_occgrid_test
 
 
 def get_state_dict() -> Dict[str, Tensor]:
-    sd_A = torch.load("/media/data7/fballerini/nerfacc/examples/ckpts/drums_torch_A.pt")
-    sd_B = torch.load("/media/data7/fballerini/nerfacc/examples/ckpts/drums_torch_B.pt")
+    sd_A = torch.load("ckpts/drums_torch_A.pt")
+    sd_B = torch.load("ckpts/drums_torch_hash_A_mlp_B.pt")
     sd_A["radiance_field"]["mlp_base.1.params"] = sd_B["radiance_field"]["mlp_base.1.params"]  # density mlp
     sd_A["radiance_field"]["mlp_head.params"] = sd_B["radiance_field"]["mlp_head.params"]  # color mlp
 
@@ -129,14 +129,14 @@ def search_perm() -> None:
         if psnr > psnr_best:
             psnr_best = psnr
             wandb.log({"test/psnr_best": psnr_best}, step=step)
-            torch.save(sd, "ckpts/best.pt")
+            torch.save(sd, "ckpts/drums_torch_perm_v2.pt")
 
 
 if __name__ == "__main__":
     wandb.init(
         entity="frallebini",
         project="nerfacc",
-        name="drums_search_perm",
+        name="drums_search_perm_v2",
     )
 
     search_perm()

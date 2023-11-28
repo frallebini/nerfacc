@@ -60,7 +60,7 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
-run_name = f"{args.scene}_{args.encoding}"
+run_name = f"{args.scene}_{args.encoding}_hash_A_mlp_B"
 wandb.init(
         entity="frallebini",
         project="nerfacc",
@@ -158,9 +158,12 @@ else:
 radiance_field = radiance_field.to(device)
 
 ############################## LOAD INIT ####################################
-# sd = torch.load("/media/data7/fballerini/nerfacc/examples/ckpts/init_A.pt")
-# estimator.load_state_dict(sd["estimator"])
-# radiance_field.load_state_dict(sd["radiance_field"])
+sd_A = torch.load("ckpts/init_A.pt")
+sd_B = torch.load("ckpts/init_B.pt")
+sd_A["radiance_field"]["mlp_base.1.params"] = sd_B["radiance_field"]["mlp_base.1.params"]  # density mlp
+sd_A["radiance_field"]["mlp_head.params"] = sd_B["radiance_field"]["mlp_head.params"]  # color mlp
+estimator.load_state_dict(sd_B["estimator"])
+radiance_field.load_state_dict(sd_A["radiance_field"])
 #############################################################################
 
 grad_scaler = torch.cuda.amp.GradScaler(2**10)
