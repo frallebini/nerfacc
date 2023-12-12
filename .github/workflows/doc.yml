@@ -1,5 +1,11 @@
 name: Docs
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
 permissions:
     contents: write
 jobs:
@@ -7,11 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          submodules: 'recursive'
       - uses: actions/setup-python@v3
+        with:
+          python-version: '3.9'
       - name: Install dependencies
         run: |
           pip install -r docs/requirements.txt
-          pip install torch==2.0.0 --index-url https://download.pytorch.org/whl/cpu
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
           BUILD_NO_CUDA=1 pip install .
       - name: Sphinx build
         run: |
@@ -24,3 +34,4 @@ jobs:
           publish_dir: _build/
           force_orphan: true
           cname: www.nerfacc.com
+        if: github.event_name != 'pull_request'

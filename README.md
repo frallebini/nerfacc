@@ -10,8 +10,8 @@
   <!-- /pypi-strip -->
 </p>
 
-[![Core Tests.](https://github.com/KAIR-BAIR/nerfacc/actions/workflows/code_checks.yml/badge.svg)](https://github.com/KAIR-BAIR/nerfacc/actions/workflows/code_checks.yml)
-[![Documentation Status](https://readthedocs.com/projects/plenoptix-nerfacc/badge/?version=latest)](https://www.nerfacc.com/en/latest/?badge=latest)
+[![Core Tests](https://github.com/nerfstudio-project/nerfacc/actions/workflows/code_checks.yml/badge.svg?branch=master)](https://github.com/nerfstudio-project/nerfacc/actions/workflows/code_checks.yml)
+[![Docs](https://github.com/nerfstudio-project/nerfacc/actions/workflows/doc.yml/badge.svg?branch=master)](https://github.com/nerfstudio-project/nerfacc/actions/workflows/doc.yml)
 [![Downloads](https://pepy.tech/badge/nerfacc)](https://pepy.tech/project/nerfacc)
 
 https://www.nerfacc.com/
@@ -38,7 +38,7 @@ pip install nerfacc
 
 Or install from source. In this way it will build the CUDA code during installation.
 ```
-pip install git+https://github.com/KAIR-BAIR/nerfacc.git
+pip install git+https://github.com/nerfstudio-project/nerfacc.git
 ```
 
 We also provide pre-built wheels covering major combinations of Pytorch + CUDA supported by [official Pytorch](https://pytorch.org/get-started/previous-versions/).
@@ -110,7 +110,7 @@ ray_indices, t_starts, t_ends = estimator.sampling(
 )
 
 # Differentiable Volumetric Rendering.
-# colors: (n_rays, 3). opaicity: (n_rays, 1). depth: (n_rays, 1).
+# colors: (n_rays, 3). opacity: (n_rays, 1). depth: (n_rays, 1).
 color, opacity, depth, extras = nerfacc.rendering(
     t_starts, t_ends, ray_indices, n_rays=rays_o.shape[0], rgb_sigma_fn=rgb_sigma_fn
 )
@@ -128,7 +128,7 @@ Before running those example scripts, please check the script about which datase
 
 ```bash
 # clone the repo with submodules.
-git clone --recursive git://github.com/KAIR-BAIR/nerfacc/
+git clone --recursive git://github.com/nerfstudio-project/nerfacc/
 ```
 
 ### Static NeRFs
