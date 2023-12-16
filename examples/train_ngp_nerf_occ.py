@@ -52,6 +52,14 @@ parser.add_argument(
     help="which scene to use",
 )
 parser.add_argument(
+    "--activation",
+    type=str,
+    default="ReLU",
+    # see https://github.com/NVlabs/tiny-cuda-nn/blob/master/DOCUMENTATION.md#activation-functions
+    choices=["None", "ReLU", "Leaky ReLU", "Exponential", "Sine", "Sigmoid", "Squareplus", "Softplus", "Tanh"],
+    help="which activation to use for both the density and color MLPs",
+)
+parser.add_argument(
     "--encoding",
     type=str,
     default="combo",
@@ -60,7 +68,7 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
-run_name = f"{args.scene}_{args.encoding}_hash_A_mlp_B"
+run_name = f"{args.scene}_{args.encoding}_{args.activation.lower()}_B"
 wandb.init(
         entity="frallebini",
         project="nerfacc",
@@ -143,9 +151,17 @@ estimator = OccGridEstimator(
 
 # setup the radiance field we want to train
 if args.encoding == "cuda":
-    radiance_field = NGPRadianceField(aabb=estimator.aabbs[-1], use_cuda_encoding=True)
+    radiance_field = NGPRadianceField(
+        aabb=estimator.aabbs[-1], 
+        mlp_activation=args.activation, 
+        use_cuda_encoding=True
+    )
 elif args.encoding == "torch":
-    radiance_field = NGPRadianceField(aabb=estimator.aabbs[-1], use_torch_encoding=True)
+    radiance_field = NGPRadianceField(
+        aabb=estimator.aabbs[-1], 
+        mlp_activation=args.activation, 
+        use_torch_encoding=True
+    )
     #################### SAVE INIT #####################
     # ckpt = {
     #     "radiance_field": radiance_field.state_dict(),
@@ -154,16 +170,21 @@ elif args.encoding == "torch":
     # torch.save(ckpt, "ckpts/init_B.pt")
     ####################################################
 else:
-    radiance_field = NGPRadianceField(aabb=estimator.aabbs[-1])
+    radiance_field = NGPRadianceField(
+        aabb=estimator.aabbs[-1], 
+        mlp_activation=args.activation
+    )
 radiance_field = radiance_field.to(device)
 
 ############################## LOAD INIT ####################################
-sd_A = torch.load("ckpts/init_A.pt")
 sd_B = torch.load("ckpts/init_B.pt")
-sd_A["radiance_field"]["mlp_base.1.params"] = sd_B["radiance_field"]["mlp_base.1.params"]  # density mlp
-sd_A["radiance_field"]["mlp_head.params"] = sd_B["radiance_field"]["mlp_head.params"]  # color mlp
+# sd_B = torch.load("ckpts/init_B.pt")
+# sd_A["radiance_field"]["mlp_base.1.params"] = sd_B["radiance_field"]["mlp_base.1.params"]  # density mlp
+# sd_A["radiance_field"]["mlp_head.params"] = sd_B["radiance_field"]["mlp_head.params"]  # color mlp
+# estimator.load_state_dict(sd_B["estimator"])
+# radiance_field.load_state_dict(sd_A["radiance_field"])
 estimator.load_state_dict(sd_B["estimator"])
-radiance_field.load_state_dict(sd_A["radiance_field"])
+radiance_field.load_state_dict(sd_B["radiance_field"])
 #############################################################################
 
 grad_scaler = torch.cuda.amp.GradScaler(2**10)
@@ -271,36 +292,43 @@ for step in tqdm.tqdm(range(max_steps + 1), "train step"):
                 rays = data["rays"]
                 pixels = data["pixels"]
 
-                # rendering
-                rgb, acc, depth, _ = render_image_with_occgrid_test(
-                    1024,
-                    # scene
-                    radiance_field,
-                    estimator,
-                    rays,
-                    # rendering options
-                    near_plane=near_plane,
-                    render_step_size=render_step_size,
-                    render_bkgd=render_bkgd,
-                    cone_angle=cone_angle,
-                    alpha_thre=alpha_thre,
-                )
+                try:
+                    # rendering
+                    rgb, acc, depth, _ = render_image_with_occgrid_test(
+                        1024,
+                        # scene
+                        radiance_field,
+                        estimator,
+                        rays,
+                        # rendering options
+                        near_plane=near_plane,
+                        render_step_size=render_step_size,
+                        render_bkgd=render_bkgd,
+                        cone_angle=cone_angle,
+                        alpha_thre=alpha_thre,
+                    )
+                except RuntimeError:
+                    tqdm.write(f"skipped test sample {i}")
+                    continue
+
                 mse = F.mse_loss(rgb, pixels)
                 psnr = -10.0 * torch.log(mse) / np.log(10.0)
                 
                 psnrs.append(psnr.item())
                 lpips.append(lpips_fn(rgb, pixels).item())
+                
                 if i % 10 == 0:
                     rendered = (rgb.cpu().numpy() * 255).astype(np.uint8)
                     gt = f"{args.data_root}/{args.scene}/test/r_{i}.png"
                     wandb.log({f"test/{i}": [wandb.Image(gt), wandb.Image(rendered)]})
+        
         psnr_avg = sum(psnrs) / len(psnrs)
         lpips_avg = sum(lpips) / len(lpips)
         wandb.log({
             "test/psnr_avg": psnr_avg,
             "test/lpips_avg": lpips_avg,
         })
-        
+
         Path("ckpts").mkdir(exist_ok=True)
         ckpt = {
             "radiance_field": radiance_field.state_dict(),

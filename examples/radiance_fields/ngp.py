@@ -85,6 +85,7 @@ class NGPRadianceField(torch.nn.Module):
         geo_feat_dim: int = 15,
         n_levels: int = 16,
         log2_hashmap_size: int = 19,
+        mlp_activation: str = "ReLU",
         use_cuda_encoding: bool = False,
         use_torch_encoding: bool = False,
     ) -> None:
@@ -105,6 +106,8 @@ class NGPRadianceField(torch.nn.Module):
         per_level_scale = np.exp(
             (np.log(max_resolution) - np.log(base_resolution)) / (n_levels - 1)
         ).tolist()
+
+        mlp_type = "CutlassMLP" if mlp_activation == "Sine" else "FullyFusedMLP"
 
         if self.use_viewdirs:
             self.direction_encoding = tcnn.Encoding(
@@ -132,8 +135,8 @@ class NGPRadianceField(torch.nn.Module):
             "per_level_scale": per_level_scale,
         }
         network_config={
-            "otype": "FullyFusedMLP",
-            "activation": "ReLU",
+            "otype": mlp_type,
+            "activation": mlp_activation,
             "output_activation": "None",
             "n_neurons": 64,
             "n_hidden_layers": 1,
@@ -191,8 +194,8 @@ class NGPRadianceField(torch.nn.Module):
                 ),
                 n_output_dims=3,
                 network_config={
-                    "otype": "FullyFusedMLP",
-                    "activation": "ReLU",
+                    "otype": mlp_type,
+                    "activation": mlp_activation,
                     "output_activation": "None",
                     "n_neurons": 64,
                     "n_hidden_layers": 2,

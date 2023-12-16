@@ -13,13 +13,13 @@ from nerfacc.estimators.occ_grid import OccGridEstimator
 from radiance_fields.ngp import NGPRadianceField
 from torch import Tensor
 from tqdm import tqdm
-from typing import Dict, List
+from typing import Any, Dict, List
 from utils import render_image_with_occgrid_test
 
 
-def get_state_dict() -> Dict[str, Tensor]:
-    sd_A = torch.load("ckpts/drums_torch_A.pt")
-    sd_B = torch.load("ckpts/drums_torch_hash_A_mlp_B.pt")
+def get_state_dict(cfg: Dict[str, Any]) -> Dict[str, Tensor]:
+    sd_A = torch.load(cfg["path_A"])
+    sd_B = torch.load(cfg["path_B"])
     sd_A["radiance_field"]["mlp_base.1.params"] = sd_B["radiance_field"]["mlp_base.1.params"]  # density mlp
     sd_A["radiance_field"]["mlp_head.params"] = sd_B["radiance_field"]["mlp_head.params"]  # color mlp
 
@@ -44,7 +44,7 @@ def generate_binary_masks(bit_count: int) -> List[List[bool]]:
     return binary_masks
 
 
-def search_perm() -> None:
+def search_perm(cfg: Dict[str, Any]) -> None:
     # dataset parameters
     scene = "drums"
     data_root = "/media/data7/fballerini/datasets/nerf_synthetic"
@@ -78,7 +78,7 @@ def search_perm() -> None:
 
     for step, mask in enumerate(tqdm(generate_binary_masks(16))):
         # reset state dict
-        sd = get_state_dict()
+        sd = get_state_dict(cfg)
 
         # get grids
         grids = [sd["radiance_field"][f"mlp_base.0.levels.{i}.embedding.weight"].cpu() for i in range(16)]
@@ -101,9 +101,7 @@ def search_perm() -> None:
         radiance_field.eval()
 
         with torch.no_grad():
-            i = torch.randint(0, len(test_dataset), (1,)).item()
-            data = test_dataset[i]
-
+            data = test_dataset[cfg["sample_idx"]]
             render_bkgd = data["color_bkgd"]
             rays = data["rays"]
             pixels = data["pixels"]
@@ -129,14 +127,23 @@ def search_perm() -> None:
         if psnr > psnr_best:
             psnr_best = psnr
             wandb.log({"test/psnr_best": psnr_best}, step=step)
-            torch.save(sd, "ckpts/drums_torch_perm_v2.pt")
+            torch.save(sd, cfg["path_out"])
 
 
 if __name__ == "__main__":
+    cfg = {
+        "run_name": "drums_search_perm_sine",
+        "sample_idx": 42,
+        "path_A": "ckpts/drums_torch_sine_A.pt",
+        "path_B": "ckpts/drums_torch_sine_B.pt",
+        "path_out": "ckpts/drums_torch_sine_perm.pt"
+    }
+
     wandb.init(
         entity="frallebini",
         project="nerfacc",
-        name="drums_search_perm_v2",
+        name=cfg["run_name"],
+        config=cfg
     )
-
-    search_perm()
+    
+    search_perm(cfg)
