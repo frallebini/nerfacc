@@ -1,0 +1,2548 @@
+[33mcommit 13a7eca3d578adfb35771b61024b1f2c96d5aa50[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: frallebini <francesco.ballerini4@unibo.it>
+Date:   Sat Dec 16 16:56:01 2023 +0100
+
+    feat: add sine activation
+
+[33mcommit ccea0cf08afc3078a146fa7707c82dd0ff1464da[m
+Merge: 82c719d 676ae91
+Author: Francesco Ballerini <franciballe71@gmail.com>
+Date:   Tue Dec 12 18:53:33 2023 +0100
+
+    Merge branch 'nerfstudio-project:master' into master
+
+[33mcommit 82c719d5273abeb762ee2703cf764e9ccc9dc308[m
+Author: frallebini <francesco.ballerini4@unibo.it>
+Date:   Tue Dec 12 18:50:32 2023 +0100
+
+    feat: add scatter plots
+
+[33mcommit 676ae91ce680a2d8d7effeddb6b9b1c6a33a454a[m
+Author: Ruilong Li <397653553@qq.com>
+Date:   Mon Dec 11 19:13:38 2023 -0800
+
+    Revert "fix"
+    
+    This reverts commit bc1a03d72449a1b904d0a5c9179b2d40a7800d84.
+
+[33mcommit ef8d27c5b947631d8939caa5a47b63d04b795487[m
+Author: Edward Li <edward.w.li@outlook.com>
+Date:   Tue Dec 5 15:01:16 2023 -0500
+
+    Fix typo in `README.md`: `opaicity` to `opacity` (#267)
+
+[33mcommit 468ab32fb582346ae989c58f2a24879c51db84b7[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Dec 1 23:23:39 2023 +0000
+
+    badges
+
+[33mcommit 53718abb1ed7a053cb34feea017ecd053114057c[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Dec 1 23:21:34 2023 +0000
+
+    format
+
+[33mcommit 37c0fcffed1fce195d8a61aa6d5c17804863c948[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Dec 1 23:20:51 2023 +0000
+
+    python 3.9 in workflow
+
+[33mcommit 6ce69df7c33255ebdf1ae34d0b3b53d12afb5070[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Dec 1 23:19:15 2023 +0000
+
+    swtich python to pass black check
+
+[33mcommit 41c856267534d2551913eda91b4e7f8d03552002[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Dec 1 23:13:38 2023 +0000
+
+    Docs Badge
+
+[33mcommit 838be2edf81d0a42a79564e71ce7fe1cf72ac96b[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Dec 1 23:12:32 2023 +0000
+
+    fix docs workflow python
+
+[33mcommit a35bff0170417dbae0cd4e24eb3e36ab4391da3f[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Dec 1 23:10:33 2023 +0000
+
+    update doc workflow
+
+[33mcommit 27a318daf587952d00dbccd53088b16dfea3d7a0[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Dec 1 23:07:36 2023 +0000
+
+    black format
+
+[33mcommit ec22f12cba059b6fe9c4e4cbc564567bc958b685[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Dec 1 23:06:09 2023 +0000
+
+    fix
+
+[33mcommit ace4848434eff38d7652ea7431bbbbebf364e318[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Dec 1 23:05:49 2023 +0000
+
+    fix
+
+[33mcommit 1add049af150fb857c82f3eec868c37a7623ab8e[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Dec 1 23:01:16 2023 +0000
+
+    fix doc workflow
+
+[33mcommit 4f74b4ccf2b297c21e1711393da19276529b5d90[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Dec 1 22:58:59 2023 +0000
+
+    update links
+
+[33mcommit bc1a03d72449a1b904d0a5c9179b2d40a7800d84[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sat Sep 23 01:58:30 2023 +0000
+
+    fix
+
+[33mcommit cd72f97934fdb51f2e53ad9e7433cc070a4091b5[m
+Author: Ruilong Li <397653553@qq.com>
+Date:   Wed Nov 29 09:59:33 2023 -0800
+
+    docstring
+
+[33mcommit ad98221d475300e147914c08d35120537421f9e1[m
+Author: Ruilong Li <397653553@qq.com>
+Date:   Wed Nov 29 09:56:17 2023 -0800
+
+    distortion loss
+
+[33mcommit 03a8a7824458ee3d30c3cd10152681ea15dda523[m
+Author: Ruilong Li <397653553@qq.com>
+Date:   Wed Nov 29 09:52:00 2023 -0800
+
+    volrend support CUB
+
+[33mcommit ea07af8ef46cad0fd297c6364d60209d36240739[m
+Author: Ruilong Li <397653553@qq.com>
+Date:   Wed Nov 29 09:45:32 2023 -0800
+
+    inclusive sum in one function
+
+[33mcommit 7a9c17f506bba6fec1f22333b6c9dd22747d01e5[m
+Author: frallebini <francesco.ballerini4@unibo.it>
+Date:   Tue Nov 28 18:56:35 2023 +0100
+
+    feat: add same-init hash
+
+[33mcommit a0792e8888b1965b8d68ead557888f10524f09c1[m
+Author: Ruilong Li <397653553@qq.com>
+Date:   Thu Nov 23 01:29:23 2023 -0800
+
+    profile cub
+
+[33mcommit 75a7b0218e18412a8134cb05f1e3ece9201e0d13[m
+Author: Ruilong Li <397653553@qq.com>
+Date:   Thu Nov 23 01:16:05 2023 -0800
+
+    cub scan added, past test
+
+[33mcommit 4a0a9a9f7e21b13bbf13d26b497b3ad093764888[m
+Author: frallebini <francesco.ballerini4@unibo.it>
+Date:   Wed Nov 15 22:51:16 2023 +0100
+
+    feat: add permutation search
+
+[33mcommit d88b57eebfd447211d669a0fee46ac69adc58b5a[m
+Author: frallebini <francesco.ballerini4@unibo.it>
+Date:   Wed Nov 8 19:51:45 2023 +0100
+
+    feat: add noteboook for quick testing
+
+[33mcommit 4428e292eeeb3a4c30ba40515b42a3a0bcad9282[m
+Author: frallebini <francesco.ballerini4@unibo.it>
+Date:   Wed Nov 8 19:51:22 2023 +0100
+
+    feat: remove fixed seed from both training and init
+
+[33mcommit 45e49b2bf071da7fc3ac6829e5e9746a6b5a2aa6[m
+Author: frallebini <francesco.ballerini4@unibo.it>
+Date:   Tue Nov 7 12:53:46 2023 +0100
+
+    feat: add model saving
+
+[33mcommit ddcc981f9e3a5ecf02790507deeeb73996c65a55[m
+Author: frallebini <francesco.ballerini4@unibo.it>
+Date:   Mon Nov 6 17:42:12 2023 +0100
+
+    feat: add pure torch encoding
+
+[33mcommit c32e8112d5d4866a29f7f4dcb4f55183b1421fea[m
+Author: frallebini <francesco.ballerini4@unibo.it>
+Date:   Mon Nov 6 14:33:24 2023 +0100
+
+    feat: add wandb logging
+
+[33mcommit c6743da578b794a0ecfd535588ac8f33c5092017[m
+Author: frallebini <francesco.ballerini4@unibo.it>
+Date:   Sat Nov 4 19:48:36 2023 +0100
+
+    feat: add separate tcnn.Encoding
+
+[33mcommit 34236db5fab949fb7202acb6edf4737efe208a61[m
+Author: frallebini <francesco.ballerini4@unibo.it>
+Date:   Fri Nov 3 18:20:31 2023 +0100
+
+    chore: minor fixes in train_ngp_nerf_occ
+
+[33mcommit 6591dd380a803722ca9e420b6639a1e704921f79[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Fri Sep 22 20:27:19 2023 -0700
+
+    Update doc.yml
+
+[33mcommit d48ed0141ebe3f5a0634e60008effd5025e37789[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Fri Sep 22 20:23:36 2023 -0700
+
+    Update doc.yml
+
+[33mcommit 6c43fdefd02960ccafc5288e41dcbb67513eaca9[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sat Sep 23 01:56:16 2023 +0000
+
+    fix
+
+[33mcommit 5f5da2c1d7eea744de777680e7f937bc5961870d[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sat Sep 23 01:52:10 2023 +0000
+
+    fix
+
+[33mcommit 5307cd6c8fae1fe76647f0c0e49c7eb660651809[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sat Sep 23 01:45:19 2023 +0000
+
+    fix
+
+[33mcommit fb1da9055bb88f4a2fc1ba6f49d5e7b8eb4c994f[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sat Sep 23 01:44:00 2023 +0000
+
+    fix
+
+[33mcommit fc54df3bde3f3be8aa3197ebefde3a0246de77b4[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sat Sep 23 01:42:57 2023 +0000
+
+    doc workflow
+
+[33mcommit eebe491b6c7874e16d01c2d18ed8e1b269490c1a[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Sep 19 14:18:43 2023 -0700
+
+    Update LICENSE
+    
+    BAIR LICENSE UPDATE
+
+[33mcommit 82baf33d19f775a53a1b4bdb8fd47ed26a8a343c[m
+Author: Ruilong Li <397653553@qq.com>
+Date:   Tue Sep 5 12:31:02 2023 -0700
+
+    minor fix for prefix_trans
+
+[33mcommit 433130618da036d64581e07dc1bf5520bd213129[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed May 31 11:46:24 2023 -0700
+
+    bump version
+
+[33mcommit 561c6c5ae2a44f902f9f8bba3e53e7df78fdbe92[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed May 17 15:28:04 2023 -0700
+
+    Update README.md
+
+[33mcommit 150630ab9550332f223865c09125f3eafbd890de[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed May 17 15:20:02 2023 -0700
+
+    Fix Workflows for Compiling (#224)
+    
+    * single build
+    
+    * attemp fix aws listing
+    
+    * fix
+    
+    * fix
+    
+    * fix
+    
+    * fix
+    
+    * fix
+    
+    * fix
+    
+    * fix
+    
+    * fix
+    
+    * fix format
+    
+    * fix format
+
+[33mcommit 910488e38f94f7c00a14736f4c42a8009740e4f2[m
+Author: Zhihao Liang <49898493+lzhnb@users.noreply.github.com>
+Date:   Wed May 17 00:45:48 2023 +0800
+
+    fix: fix the dimension comments of t_sorted and t_indices (#221)
+    
+    Co-authored-by: chihaoliang(chihaoliang) <chihaoliang@tencent.com>
+
+[33mcommit 2312ac208a38a3f3ead64cf33aa44688bac014c9[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Sat May 13 09:42:27 2023 -0700
+
+    Update README.md
+
+[33mcommit e49d398a41f6621faa75e369ba6b20409ede3303[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Sat May 13 09:41:57 2023 -0700
+
+    Update README.md
+
+[33mcommit 34855fdcc0886dc96003098049627587081d4bd9[m
+Author: Youtian Lin <linyoutian.loyot@gmail.com>
+Date:   Sat May 13 18:03:29 2023 +0800
+
+    Include a test mode rendering function for Instant NGP in the examples (#217)
+    
+    * add test mode render_image_with_occgrid
+    
+    * fix format
+    
+    * misc fix
+
+[33mcommit d3f1e37f6a7a5440cac34cd688b2cd5dd8d6ed3f[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Wed May 10 05:17:34 2023 +0000
+
+    update docs
+
+[33mcommit 8df25048e523f6be63830abef0bc2c28a290435f[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Tue Apr 18 23:29:00 2023 +0000
+
+    ndr trial
+
+[33mcommit 3c876cf1827ab1ec574a023f51242872db11e944[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue May 9 10:20:43 2023 -0700
+
+    Update 3d-party usages
+
+[33mcommit 10315043bb6abd5a132deee39c2807afb684e13b[m
+Author: Youtian Lin <linyoutian.loyot@gmail.com>
+Date:   Thu May 4 02:41:03 2023 +0800
+
+    Accelerate Instant-NGP inference (#197)
+    
+    * add mark_invisible_cells in occ_grid
+    
+    add test mode for traverse_grids
+    
+    * add data type to mark_invisible_cells
+    
+    * add test for mark_invisible_cells & test mode traverse_grids
+    
+    * upd comments
+    
+    * ndr trial
+    
+    * merge traverse_grids with traverse_grids_test in C
+    
+    * fix format
+    
+    * Revert "fix format"
+    
+    This reverts commit 6233fc4e3a4ea4643ace6a96d28ad32c6a3a444f.
+    
+    * revert benchmarks changes
+    
+    * remove MLP updates
+    
+    * Revert "remove MLP updates"
+    
+    This reverts commit c37d199463e1d1fd2d28e061137391fe1b01b537.
+    
+    * revert benchmarks changes
+    
+    * add assert in traverse_grids
+    
+    * Revert "add assert in traverse_grids"
+    
+    This reverts commit c93eaad20b7e53f8dca49a3f9af97b549b7092fc.
+    
+    * revert benchmarks changes
+    
+    * reduce mem for traverse grid with over_allocate=True
+    
+    * cleanup doc
+    
+    * final cleanup with mark_invisible_cells
+    
+    * ndr trial
+    
+    * fix occ grid invisible cell filtering
+    
+    ---------
+    
+    Co-authored-by: Ruilong Li <ruilongli94@gmail.com>
+
+[33mcommit 0be61b2aabdc73bf9d019ff1066404cb29c6ed04[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Mon May 1 23:42:00 2023 -0700
+
+    Remove unused code and fix issues when data is empty (#211)
+    
+    * ndr trial
+    
+    * remove unused cuda code
+    
+    * remove unused python code
+    
+    * remove unused python code
+    
+    * scan.cu is able to deal with empty inputs
+    
+    * fix when network input is empty
+    
+    * fix when network input is empty
+    
+    * fix when network input is empty
+    
+    * revert benchmarks submodules
+    
+    * remove unused mlp model
+
+[33mcommit d84cdf3afd7dcfc42150e0f0506db58a5ce62812[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Mon Apr 24 00:59:42 2023 -0700
+
+    Bump to 0.5.2
+
+[33mcommit 16ceaeb7c251d2d6a45db1433ee8f50b9b9c9738[m
+Author: Youtian Lin <linyoutian.loyot@gmail.com>
+Date:   Sat Apr 22 03:06:10 2023 +0800
+
+    Add pre-computed transmittance (#206)
+    
+    * add pre-computed transmittance_
+    
+    * add prefix_trans to all render  functions
+
+[33mcommit 09b43b1dfefcd987b1cc886c5e4c3d717587b74b[m
+Author: arterms <115171665+arterms@users.noreply.github.com>
+Date:   Wed Apr 19 17:23:21 2023 +0200
+
+    Per-ray minimum and maximum distances in sampling method (#205)
+    
+    * Fixed traversal with far_plane
+    
+    * test added for traversal with near and far planes
+    
+    * More correct test
+    
+    * black formatting for test
+    
+    * Per-ray min-max distances in sampling
+    
+    * Test for sampling with min/max distances added
+    
+    * black formatting
+
+[33mcommit 4b7819b49b3b39f7a2e65e9d1a5762d09da7e49f[m
+Author: arterms <115171665+arterms@users.noreply.github.com>
+Date:   Fri Apr 14 18:10:52 2023 +0200
+
+    Fixed grid traversal with near and far planes (#204)
+    
+    * Fixed traversal with far_plane
+    
+    * test added for traversal with near and far planes
+    
+    * More correct test
+    
+    * black formatting for test
+
+[33mcommit d858e9f3a6814d04d298c561f65469b05689047e[m
+Author: Yujie Yuan <857880295@qq.com>
+Date:   Fri Apr 14 00:07:11 2023 +0800
+
+    fix issues in the example code (#203)
+
+[33mcommit ebeb5ddf733c04b425d5070efae9c3d23f64b078[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Sun Apr 9 00:43:48 2023 -0700
+
+    Cameras (#198)
+    
+    * opencv_lens_undistortion
+    
+    * fix k4 bug for undistortion, support fisheye
+    
+    * support k3 k4 k5 k6
+    
+    * fix _opencv_len_distortion; format
+    
+    * naming: len->lens
+
+[33mcommit 4f7965c913401268bdf419f954246dfcdd500207[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Thu Apr 6 13:02:15 2023 -0700
+
+    Update run_aws_listing.py
+
+[33mcommit 01416ca43cfa98d0b2008009d34ef471200b5394[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Thu Apr 6 17:46:53 2023 +0000
+
+    update workflow action versions
+
+[33mcommit 15e4430fae9ccabd94ce36cd12a344fca20068a3[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Thu Apr 6 07:46:52 2023 +0000
+
+    update workflow action versions
+
+[33mcommit 1866ddb6503368636b502a8745770c3213cd9101[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Thu Apr 6 00:19:24 2023 -0700
+
+    depreciate cu102 prebuilt
+
+[33mcommit cace858a6661a3b38c3a2546a073d466e0486d1e[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Thu Apr 6 00:07:24 2023 -0700
+
+    0.5.1 (#195)
+    
+    * update workflow; fix Literal
+    
+    * fix format
+    
+    * fix typo
+    
+    * fix workflow for cu102
+
+[33mcommit d14ca0f53bdfb1ec2a5965fd114b34017d8f7274[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Thu Apr 6 00:00:42 2023 -0700
+
+    0.5.1 (#194)
+    
+    * update workflow; fix Literal
+    
+    * fix format
+    
+    * fix typo
+
+[33mcommit 9ab65d2c35db13fd579923f66db85e3ba738e215[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Apr 5 23:55:36 2023 -0700
+
+    update workflow; fix Literal (#193)
+    
+    * update workflow; fix Literal
+    
+    * fix format
+
+[33mcommit 627d44465ea30f66bb9c62d91230043607fdb811[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Apr 5 23:04:53 2023 -0700
+
+    Workflow (#192)
+    
+    * update workflow
+    
+    * tiny fix
+    
+    * format
+    
+    * format
+    
+    * fix workflow
+    
+    * fix workflow
+    
+    * update cuda env file
+
+[33mcommit 4d368e0e2150d15ff75dea06428abe62513c4b01[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Apr 5 21:35:27 2023 -0700
+
+    Workflow (#191)
+    
+    * update workflow
+    
+    * tiny fix
+    
+    * format
+    
+    * format
+    
+    * fix workflow
+    
+    * fix workflow
+
+[33mcommit 7a81e1456944f881f0a9d1c95a626e0995e68df4[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Apr 5 18:12:59 2023 -0700
+
+    Workflow (#190)
+    
+    * update workflow
+    
+    * tiny fix
+    
+    * format
+    
+    * format
+    
+    * fix workflow
+
+[33mcommit 721700025846914f0c5409eeadbd5c0dfaa90321[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Apr 5 18:10:12 2023 -0700
+
+    Update README.md
+
+[33mcommit 3e4902255c2321860a624a3855a6ddd79c985285[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Apr 5 18:08:44 2023 -0700
+
+    update workflow (#189)
+    
+    * update workflow
+    
+    * tiny fix
+    
+    * format
+    
+    * format
+
+[33mcommit dbfd5deb5a0a8da48ad88147ef9fd2c364316094[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Apr 5 11:03:25 2023 -0700
+
+    update docs (#188)
+
+[33mcommit 29990968ac6c803b0932eac09c3e4b3acbce6ae0[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Apr 4 21:51:47 2023 -0700
+
+    fix doc (#187)
+
+[33mcommit b44a4218ff8a1a2a9afef6bfe20794ae7d4d4a58[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Apr 4 19:53:58 2023 -0700
+
+    Update CHANGELOG.md
+
+[33mcommit a2e36e91a5ef77db516cb1dc0be8f0cef0f1ca31[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Apr 4 19:53:07 2023 -0700
+
+    fix (#186)
+
+[33mcommit 077fda5bda268328bb9a4666f30e82620ff60882[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Apr 4 19:43:46 2023 -0700
+
+    Update README.md
+
+[33mcommit d0c3da906ab29d25914e2519ebf60ac52523163d[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Apr 4 19:42:19 2023 -0700
+
+    Create README.md
+
+[33mcommit a3ee36916edb91cbfa530dcc53c0e06a672b9340[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Apr 4 19:39:49 2023 -0700
+
+    change of log (#185)
+
+[33mcommit 2d31cba9dce7ef5f8f58483c4ee7dff7499fdd0f[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Mon Apr 3 22:53:43 2023 -0700
+
+    Complete docs for 0.5.0 (#184)
+    
+    * missing docs for the 4 dropin examples
+    
+    * fix docs
+    
+    * profiling in coding.rst
+
+[33mcommit ba78cbdcd0177db9d6ec0947ddf81b5157f3535c[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Mon Apr 3 17:06:06 2023 -0700
+
+    0.5.0 updates (#183)
+    
+    update the doc
+
+[33mcommit 8340e19daad4bafe24125150a8c56161838086fa[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Mon Apr 3 11:47:14 2023 -0700
+
+    0.5.0: Rewrite all the underlying CUDA. Speedup and Benchmarking. (#182)
+    
+    * importance_sampling with test
+    
+    * package importance_sampling
+    
+    * compute_intervals tested and packaged
+    
+    * compute_intervals_v2
+    
+    * bicycle is failing
+    
+    * fix cut in compute_intervals_v2, test pass for rendering
+    
+    * hacky way to get opaque_bkgd work
+    
+    * reorg ING
+    
+    * PackedRaySegmentsSpec
+    
+    * chunk_ids -> ray_ids
+    
+    * binary -> occupied
+    
+    * test_traverse_grid_basic checked
+    
+    * fix traverse_grid with step size, checked
+    
+    * support max_step_size, not verified
+    
+    * _cuda and cuda; upgrade ray_marching
+    
+    * inclusive scan
+    
+    * test_exclusive_sum but seems to have numeric error
+    
+    * inclusive_sum_backward verified
+    
+    * exclusive sum backward
+    
+    * merge fwd and bwd for scan
+    
+    * inclusive & exclusive prod verified
+    
+    * support normal scan with torch funcs
+    
+    * rendering and tests
+    
+    * a bit clean up
+    
+    * importance_sampling verified
+    
+    * stratified for importance_sampling
+    
+    * importance_sampling in pdf.py
+    
+    * RaySegmentsSpec in data_specs; fix various bugs
+    
+    * verified with _proposal_packed.py
+    
+    * importance sampling support batch input/output. need to verify
+    
+    * prop script with batch samples
+    
+    * try to use cumsum  instead of cumprod
+    
+    * searchsorted
+    
+    * benchmarking prop
+    
+    * ray_aabb_intersect untested
+    
+    * update prop benchmark numbers
+    
+    * minor fixes
+    
+    * batched ray_aabb_intersect
+    
+    * ray_aabb_intersect and traverse with grid(s)
+    
+    * tiny optimize for traverse_grids kernels
+    
+    * traverse_grids return intervals and samples
+    
+    * cub not verified
+    
+    * cleanup
+    
+    * propnet and occgrid as estimators
+    
+    * training print iters 10k
+    
+    * prop is good now
+    
+    * benchmark in google sheet.
+    
+    * really cleanup: scan.py and test
+    
+    * pack.py and test
+    
+    * rendering and test
+    
+    * data_specs.py and pdf.py docs
+    
+    * data_specs.py and pdf.py docs
+    
+    * init and headers
+    
+    * grid.py and test for it
+    
+    * occ grid docs
+    
+    * generated docs
+    
+    * example docs for pack and scan function.
+    
+    * doc fix for volrend.py
+    
+    * doc fix for pdf.py
+    
+    * fix doc for rendering function
+    
+    * docs
+    
+    * propnet docs
+    
+    * update scripts
+    
+    * docs: index.rst
+    
+    * methodology docs
+    
+    * docs for examples
+    
+    * mlp nerf script
+    
+    * update t-nerf script
+    
+    * rename dnerf to tnerf
+    
+    * misc update
+    
+    * bug fix: pdf_loss with test
+    
+    * minor fix
+    
+    * update readme with submodules
+    
+    * fix format
+    
+    * update gitingore file
+    
+    * fix doc failure. teaser png to jpg
+    
+    * docs in examples/
+
+[33mcommit e547490c41751365235f70dc22219375a276e0ea[m
+Author: Loïc Magne <53355258+loicmagne@users.noreply.github.com>
+Date:   Mon Mar 27 07:19:48 2023 +0200
+
+    scatter_add_ -> index_add_ (#179)
+
+[33mcommit 9a1c0ab56806a46162d4d088a490fe862b6c3e4e[m
+Author: Jingchen Ye <11172084+97littleleaf11@users.noreply.github.com>
+Date:   Mon Mar 27 13:19:22 2023 +0800
+
+    Fix train_mlp_nerf and save the model at the end of training (#177)
+    
+    * Fix train_mlp_nerf
+    
+    * Fix black and isort
+
+[33mcommit 17e28de798dca5d2e2761ff8d514b8b4df26ef6f[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Wed Mar 15 06:02:52 2023 +0000
+
+    20k iters
+
+[33mcommit b53f8a4e6e05580984e65545224f34a327bf23e3[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Mar 14 17:52:06 2023 -0700
+
+    Support multi-res occ grid & prop net (#176)
+    
+    * multres grid
+    
+    * prop
+    
+    * benchmark with prop and occ
+    
+    * benchmark blender with weight_decay
+    
+    * docs
+    
+    * bump version
+
+[33mcommit 82fd69c7274434678473365678d3ae2aa2ed3ae2[m
+Author: Jingchen Ye <11172084+97littleleaf11@users.noreply.github.com>
+Date:   Fri Mar 10 02:06:02 2023 +0800
+
+    Updates on examples (#174)
+    
+    * move torch data transfer into dataloader
+    
+    * Update README
+    
+    * use args.data_root
+    
+    * Remove redundant check
+    
+    * Fix isort
+    
+    * Fix black
+
+[33mcommit 15330b4c51b32251195aa8c19e10b252563963d2[m
+Author: Jingchen Ye <11172084+97littleleaf11@users.noreply.github.com>
+Date:   Sat Feb 25 15:58:58 2023 +0800
+
+    Fix the link to train_mlp_nerf (#168)
+    
+    * Fix the link to train_mlp_nerf
+    
+    * Fix the link
+
+[33mcommit 882d9927ce7cd08acc166e0848127e9fe2d17fa2[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Thu Feb 23 20:09:20 2023 +0000
+
+    restore hook; fix workflow instead
+
+[33mcommit 1d2c2ed118912f0a04eca7255dd26a66f34c1b09[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Thu Feb 23 20:07:23 2023 +0000
+
+    disable black isort hook
+
+[33mcommit 389e20aba21784633906ba0c35f12bc5b7b78329[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Thu Feb 23 20:06:09 2023 +0000
+
+    fix hook
+
+[33mcommit 31fe2e292079c5aef63619dc97284ae8f2088ae2[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Thu Feb 23 20:04:34 2023 +0000
+
+    black in pre commit hook
+
+[33mcommit 8f19eb285efccaa2a94d714428110889e0390a87[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Thu Feb 23 19:59:58 2023 +0000
+
+    bump version to 0.3.5
+
+[33mcommit f49a440521c0b034ee6e76a9a2b585d16ae07e86[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Thu Feb 23 19:59:04 2023 +0000
+
+    fix: c code not included for pypi
+
+[33mcommit cf7ebaf168a3932977e31b258e050c6df0fdd43a[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Jan 31 18:25:13 2023 -0800
+
+    Update code_checks.yml
+
+[33mcommit 59c88c62663bf8e7357dda1de191edd709e977e4[m
+Author: Saurav Maheshkar <sauravvmaheshkar@gmail.com>
+Date:   Wed Feb 1 01:01:33 2023 +0000
+
+    feat(ci): switch caching to `actions/setup-python@v4` (#149)
+
+[33mcommit df74091cbb0372d17536c230a60dc48cd33127e9[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Jan 31 02:21:09 2023 -0800
+
+    Update README.md
+
+[33mcommit aacd3f929b5d71aa5688a7cfd0e3ec6fbb384db1[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Tue Jan 31 10:14:00 2023 +0000
+
+    update with installation issues
+
+[33mcommit 2535b2b366af2345d4c4f15ba4053284d989f290[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Jan 31 02:03:03 2023 -0800
+
+    Bump 0.3.4 (#154)
+    
+    * update readme install, bump 0.3.4
+    
+    * add package data
+    
+    * fix
+
+[33mcommit 1d79f7b53be3b634bea260dc51006277d788d388[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Jan 31 01:58:52 2023 -0800
+
+    Bump to 0.3.4 (#153)
+    
+    * update readme install, bump 0.3.4
+    
+    * add package data
+
+[33mcommit 143982293967696e5857679763ed3278f9225538[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Jan 31 01:27:59 2023 -0800
+
+    Workflows to build wheel  (#151)
+    
+    pre-built wheels
+
+[33mcommit e9dd9da6078cce146b0fb938259474164e339500[m
+Author: machenmusik <machenmusik@users.noreply.github.com>
+Date:   Tue Jan 31 04:13:53 2023 -0500
+
+    avoid Windows repeated CUDA setup (#150)
+    
+    restore working 0.2.1 version, since .so will not exist on Windows
+    
+    Co-authored-by: mchen001_comcast <Michael_Chen@cable.comcast.com>
+
+[33mcommit 58d6b4c46dfee36ab4b565ab0655b1a27ff4859f[m
+Author: Matthew Tancik <mattt4001@gmail.com>
+Date:   Tue Jan 17 17:33:01 2023 -0800
+
+    v0.3.3 (#148)
+
+[33mcommit fb876fd43eaa7fd1724d002dd5c9bd30255470bf[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Tue Jan 10 05:35:32 2023 +0000
+
+    fix long to int64_t for Windows
+
+[33mcommit 1bc23a180eae1bacfd2ed5452b46f2939f776942[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Dec 30 15:12:28 2022 +0000
+
+    minor fix if CUB not supported
+
+[33mcommit 1714ba0b4ed5f38787322cee355a5191d1b94e32[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Fri Dec 30 22:14:56 2022 +0800
+
+    Update pyproject.toml
+
+[33mcommit 05a1c5b6f6551e5c60c4e90202357ae3a76bdbf4[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Dec 30 14:07:21 2022 +0000
+
+    reduce ckpt size for occ grid
+
+[33mcommit 4d595ae4abf617412178e0a08e36bc4db56f1908[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Fri Dec 30 21:58:33 2022 +0800
+
+    rm build dir for first-time build (#137)
+
+[33mcommit 903d3b559305ce856f1081aebb00f6bd7721e2a0[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Fri Dec 30 20:51:01 2022 +0800
+
+    support pytorch<=1.10
+    
+    fix for #112
+
+[33mcommit 0a091831c5f1022edb2c5437051714ea25e778dd[m
+Author: dozeri83 <109915435+dozeri83@users.noreply.github.com>
+Date:   Fri Dec 30 14:44:48 2022 +0200
+
+    Update ray_marching.cu (#136)
+    
+    fixed a hang bug where t_target has inf value ( ray is parralel to plane ?)
+    t_target should be larger that far anyway
+
+[33mcommit eecfd44bed337b8f5d54da6649693c9f16fbaeb8[m
+Author: Thomas Wang <24695242+thomasw21@users.noreply.github.com>
+Date:   Wed Dec 7 21:35:50 2022 -0500
+
+    Reduce precision conversion when packing (#124)
+    
+    * Reduce conversion. Assume that ray_indices should always be long and pack_info always int
+    
+    * Remove some more casting
+    
+    * More casting fixes
+    
+    * Remove unecessary long casting
+    
+    * Fix changes in precision at python level, ray_pdf_query test is already broken since it was reverted
+    
+    * Support long when rendering transmittance
+    
+    * Support long
+    
+    * Woops
+
+[33mcommit fe75cb865b6c69b02a60371a509011ef0e11c869[m
+Author: Thomas Wang <24695242+thomasw21@users.noreply.github.com>
+Date:   Sat Nov 26 18:06:49 2022 +0100
+
+    Pass boolean tensor instead of the occlusion once. (#123)
+
+[33mcommit 0e1e7cb7c6f8e7e77073bc88f1333fddc7474c18[m
+Author: Nail Ibrahimli <mirnail994@gmail.com>
+Date:   Mon Nov 21 10:49:36 2022 +0100
+
+    typos fixing (#115)
+
+[33mcommit 71591e7dc08c111b745c888984937858eaea81c0[m
+Author: Saurav Maheshkar <sauravvmaheshkar@gmail.com>
+Date:   Mon Nov 21 15:19:19 2022 +0530
+
+    feat: add `.pre-commit-config.yaml` (#118)
+    
+    File proposal for #117
+
+[33mcommit 55acb151620e52a9221c7d84a17c384b1671079c[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Mon Nov 21 09:43:06 2022 +0000
+
+    Revert "rename to "proposal_resampling""
+    
+    This reverts commit 3090d7bd55d2f4bd8caae6d4c9c3aaf21e1d1381.
+
+[33mcommit 3090d7bd55d2f4bd8caae6d4c9c3aaf21e1d1381[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sun Nov 20 00:11:46 2022 +0000
+
+    rename to "proposal_resampling"
+
+[33mcommit a74f7e7b4ffaa4adacdbc83c711fa18dbdf2c5d9[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sun Nov 20 00:04:10 2022 +0000
+
+    proposal_sampling_with_filter: 7k; 229s; loss 64; 35.25db; 63 rays
+
+[33mcommit 1aeee0a90a68d8161a3f4e7da2566915f6624b65[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sat Nov 19 03:19:02 2022 +0000
+
+    cleanup marching; resampling steps limit
+
+[33mcommit ad2a0079630dc92d1522b6dc5637a17cacf0f0b2[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Wed Nov 16 02:52:33 2022 +0000
+
+    proposal_nets_require_grads: 7k, 226s, 34.96db, loss 57
+
+[33mcommit 6f7f9fb0a21935225991e4a6f896b9666e0d1793[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Tue Nov 15 10:19:54 2022 +0000
+
+    voxel as proposal: 7k; 292s, 54k rays, loss 0.00076
+
+[33mcommit 477ff3df006a9d020328b7ba42177ade654816a6[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Tue Nov 15 09:59:43 2022 +0000
+
+    benchmark: 7k, 345s, 34db, 56k rays, loss 0.0011
+
+[33mcommit b42d62cce6a3bcd763fda96a1e91c93156228c48[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Tue Nov 15 08:05:55 2022 +0000
+
+    fix tests; trainable; checking efficiency
+
+[33mcommit 822d51996492229e2afce13379cb11429c0d12af[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sat Nov 12 01:35:11 2022 +0000
+
+    fix entry script
+
+[33mcommit bc62c5b67442bcee19f8d47546b63efba6e1b7c6[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sat Nov 12 01:20:12 2022 +0000
+
+    merge and fix tests
+
+[33mcommit 525128113de9d2cbc6e7fdda7944cdd3d06126a2[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sat Nov 12 00:41:34 2022 +0000
+
+    training works just slow
+
+[33mcommit 2e7ad6e0bd797fa3e05bcdf4301adf2ad1e3a7f1[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Nov 11 07:40:01 2022 +0000
+
+    proposal seems working
+
+[33mcommit b4286720b010541a5bcf538ea01a743b2a1dc9d0[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Thu Nov 10 03:40:57 2022 +0000
+
+    ray_pdf_query
+
+[33mcommit 488bca66fc05b5bff5982170f204052e75ae2a67[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Nov 9 15:22:09 2022 +0800
+
+    hotfix (#109)
+
+[33mcommit ffb586f2d68c6b1cbcd700927bc126c61171fde6[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Mon Nov 7 21:17:31 2022 +0800
+
+    Update README.md
+
+[33mcommit a15d6d02d893a53dd3b348bfef6015f458b3b7d6[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Mon Nov 7 21:16:44 2022 +0800
+
+    fix docs (#105)
+
+[33mcommit 674424ec4aedf862685609d5f05ce9fec3d657fb[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Mon Nov 7 15:42:20 2022 +0800
+
+    Cub (#103)
+    
+    - Faster rendering function via nvidia-cub, shipped with cuda >= 11.0 (Require >=11.6 for out use). ~10% speedup
+    - Expose transmittance computation.
+
+[33mcommit bca2d4dc15eca264c2af421b88e85334ec547e09[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Mon Nov 7 07:32:05 2022 +0800
+
+    Update pyproject.toml
+
+[33mcommit 62afb4bae5c5a58716295b71ff37cdc5b1edb107[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sun Nov 6 15:53:39 2022 +0000
+
+    Revert "unpack_info with n_samples"
+    
+    This reverts commit 301b4dfa500bc18a85653b0e94e6a4dc5cab1f12.
+
+[33mcommit 301b4dfa500bc18a85653b0e94e6a4dc5cab1f12[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sun Nov 6 09:45:13 2022 +0000
+
+    unpack_info with n_samples
+
+[33mcommit 2d8d6b438251720b24bf841f2a1806d2d01d47ad[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Nov 2 18:19:52 2022 +0800
+
+    Update train_ngp_nerf.py
+
+[33mcommit e7bd2074c583c287b9d0f575398b68a2517cb546[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Nov 1 15:40:30 2022 +0800
+
+    Update pyproject.toml
+
+[33mcommit 70307f26b890a4baa2cf8d290acadea6e3e78308[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Nov 1 15:37:21 2022 +0800
+
+    Update README.md
+
+[33mcommit b1b48fec9e0cdfbb359e1cd393f8748d74160752[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Tue Nov 1 00:29:18 2022 -0700
+
+    environment name for publish
+
+[33mcommit 82fefe248ce811a0d4ef00efd049e7d7bd6641cf[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Tue Nov 1 00:24:42 2022 -0700
+
+    pypi workflows
+
+[33mcommit 882bfa619a16047027656daa69670f92b9c9c4da[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Nov 1 15:12:36 2022 +0800
+
+    Update README.md
+
+[33mcommit b243dab273081e03834a24b8e4bd94d9a9593d4a[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Tue Nov 1 00:08:07 2022 -0700
+
+    bump to 0.2.3 for pypi update
+
+[33mcommit d91fbc52a9a2081d2f1c4918dd1c809938e13c96[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Nov 1 14:55:35 2022 +0800
+
+    Update pyproject.toml
+
+[33mcommit 583a0e131038506d914d8fd596f6a968c8bcccee[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Nov 1 14:53:12 2022 +0800
+
+    Update pyproject.toml
+
+[33mcommit 03c0c74fc31647a81fdaf5b80aa17aeb81c39f49[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Nov 1 14:45:00 2022 +0800
+
+    Update pyproject.toml
+
+[33mcommit 0365e3518a7845aacc13f41128c11469d11b0edb[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Nov 1 14:40:20 2022 +0800
+
+    Update README.md
+
+[33mcommit 187b42ac1c7e9d8630516d30d71b74d31c30b469[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Nov 1 14:37:38 2022 +0800
+
+    Update README.md
+
+[33mcommit d24c2b7f139988b28b0d80def862ac623cef6f82[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Nov 1 08:34:13 2022 +0800
+
+    support alpha; relax pytorch requirement (#94)
+    
+    * support alpha for both marching and rendering; relax pytorch requirement
+    
+    * bump version
+
+[33mcommit e9aa8d3f010ffe0bfbd9869b0e69be83f5624ee7[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Nov 1 07:43:02 2022 +0800
+
+    Update README.md
+
+[33mcommit 447cf4e1581d3f573f0d1be449c276ac804f9458[m
+Author: Matthew Tancik <mattt4001@gmail.com>
+Date:   Mon Oct 31 11:38:35 2022 -0700
+
+    Update README.md
+
+[33mcommit 107d7466ef3fcfadd64e8b57ad3c1aafd4874fe0[m
+Author: Yuanchen Guo <bennyguo@163.com>
+Date:   Tue Oct 25 04:00:57 2022 +0800
+
+    Change dummy variable in Grid to tensor instead of parameter. (#83)
+
+[33mcommit f9be5ad3b181058e27d484ac2e441973e797db18[m
+Author: Matthew Tancik <mattt4001@gmail.com>
+Date:   Tue Oct 18 15:55:36 2022 -0700
+
+    Bump nerfacc version (#78)
+
+[33mcommit 934f5e9fcc6cd1d56b886ff7356fb99e49379d3a[m
+Author: Matthew Tancik <mattt4001@gmail.com>
+Date:   Tue Oct 18 12:55:42 2022 -0700
+
+    Support python 3.7 (#77)
+    
+    * Support python 3.7
+    
+    * Add dependency
+
+[33mcommit 62e70d39d9f16a8f6ffb2d8d89d21d799dcdf932[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Oct 12 10:53:23 2022 -0700
+
+    update ngp perf. (#68)
+
+[33mcommit 76c0f9817da4c9c8b5ccf827eb069ee2ce854b75[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Oct 12 00:45:33 2022 -0700
+
+    Update README.md
+
+[33mcommit 27b657fa769ed05191eb055a03071a589066a6fc[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Mon Oct 10 17:54:27 2022 -0700
+
+    Update paper link (#63)
+    
+    * update docs for ray gradients
+    
+    * update pdf
+
+[33mcommit ff7cf01a81fbd2d343b4b17b7ada95f6cb2ee940[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Mon Oct 10 13:37:39 2022 -0700
+
+    update docs for ray gradients (#62)
+
+[33mcommit f9a6ae6a2c8dc3d4abda5a574517f5b90a7ab25d[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Mon Oct 10 01:41:40 2022 -0700
+
+    ngp args
+
+[33mcommit 346dd51a7e4b36c09615160291c1d293ccbf3ce8[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Mon Oct 10 01:15:57 2022 -0700
+
+    update dnerf perf (#61)
+
+[33mcommit 127223b11401125a9fce5ce269bb0546ee4de6e8[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Sun Oct 9 09:27:43 2022 -0700
+
+    sync pref (#60)
+
+[33mcommit 6b8c91fd0967ab748c03f535099d1319ebdf6b60[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Sun Oct 9 09:26:44 2022 -0700
+
+    Update README.md
+
+[33mcommit 0d1cf203641471a51ed8c7a2c5618fa8362c6750[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Sun Oct 9 09:26:17 2022 -0700
+
+    Update README.md
+
+[33mcommit 5637cc9a1565b2685c02250eb1ee1c53d3b07af1[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Sat Oct 8 23:54:37 2022 -0700
+
+    Optimize examples for better performance (#59)
+    
+    * zeros -> emtpy in cuda
+    
+    * disable cuda hint if is been built
+    
+    * update examples with better perf
+    
+    * bump version to 0.2.0
+    
+    * update readme
+    
+    * update index and readm
+    
+    * clean up doc
+
+[33mcommit 3d9583210295ae25d28c8ceb54c392af5dca0386[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Fri Oct 7 14:32:54 2022 -0700
+
+    Distortion loss (#58)
+    
+    
+    * add distortion loss
+    
+    * update init
+    
+    * bump version
+
+[33mcommit 601c4c3447e4043d146e9c4be9339f0db7f4cd48[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Fri Oct 7 10:12:10 2022 -0700
+
+    Add new Utils: pack & unpack data; cdf sampling; query grid (#57)
+    
+    * new utils
+    
+    * proper test for pack
+    
+    * add test por cdf and query occ
+    
+    * add deprecated warning
+    
+    * bump version
+    
+    * fix list return to tuple
+
+[33mcommit 4007564600d98cfa710f26b005a6e27db6ec8b9c[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Thu Oct 6 23:30:24 2022 -0700
+
+    Alpha fix (#56)
+    
+    * fix rendering alpha_thre to 0 by default
+    
+    * bump version
+
+[33mcommit 7bd6383ca71dd37050f303ea0aa8b2a246cbfd52[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Thu Oct 6 09:48:13 2022 -0700
+
+    Update README.md
+
+[33mcommit 4e627f3542e72e7c3be3c082f71cd8e8e35a07d4[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Thu Oct 6 09:47:31 2022 -0700
+
+    Update README.md
+
+[33mcommit 4c6a9ceee3a8e41d47676a58195f203e68daa7d9[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Oct 5 10:29:53 2022 -0700
+
+    make it public (#52)
+
+[33mcommit 2bc02b9078378648ed19077a9f14e9dc74601962[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Oct 5 02:24:17 2022 -0700
+
+    Docs (#51)
+    
+    * new logo
+    
+    * size
+    
+    * larger logo
+
+[33mcommit 250d6660531e1604e57d959a4188e20997bfe054[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Oct 5 02:11:43 2022 -0700
+
+    new logo (#50)
+    
+    * new logo
+    
+    * size
+
+[33mcommit 8c58be5075b569be3d7d7f7e7b3f36fdd46cd63c[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Oct 5 01:06:48 2022 -0700
+
+    update requirements (#49)
+    
+    * update requirements
+    
+    * fix RTD requirements
+
+[33mcommit d67b8c32161d849a507e8f7469aceb3744500e42[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Oct 5 00:36:40 2022 -0700
+
+    Reformatting and Update Tests (#46)
+    
+    * more organized version
+    
+    * add copyrights
+    
+    * proper versioning
+    
+    * proper versioning
+    
+    * cleanup project; read version from pyproject
+    
+    * read version from pyproject
+    
+    * update weblink
+    
+    * cleanup nerfacc file structure
+    
+    * propoer test contraction
+    
+    * proper test for intersection
+    
+    * proper tests for pack, grid, and intersection
+    
+    * proper testing for rendering
+    
+    * bug fix
+    
+    * proper testing for marching
+    
+    * run check reformat
+    
+    * add hints on nvcc not found
+    
+    * add doc to readme
+    
+    * resume github check
+    
+    * update readthedocs env
+    
+    * rm tool.setuptools.packages.find
+
+[33mcommit 300ec71a6e61582c1363ddd29da56634b4b91014[m
+Author: Xiaoming Zhao <xz23@illinois.edu>
+Date:   Wed Oct 5 01:49:34 2022 -0500
+
+    fix links in docs (#47)
+    
+    Co-authored-by: Xiaoming Zhao <xmzh@fb.com>
+
+[33mcommit 13f8cdfdeb7eceae71300ce224d90ab84a7e5c74[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Mon Oct 3 19:16:50 2022 -0700
+
+    bump version to 0.1.4.post1 (#44)
+    
+    * support alpha_thre for rendering and ray marching. default to zero
+    
+    * bump version
+    
+    * hot fix
+    
+    * bump version to 0.1.4-1
+
+[33mcommit f6ca5ba5425e8deb6af2c76dff549eb0cc25bba3[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Mon Oct 3 19:05:33 2022 -0700
+
+    Hot fix (#43)
+    
+    * support alpha_thre for rendering and ray marching. default to zero
+    
+    * bump version
+    
+    * hot fix
+
+[33mcommit 542f4310cd1e42f3d881806a0e16d97f345e14da[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Mon Oct 3 18:45:31 2022 -0700
+
+    Support setting alpha threshold for marching and rendering (#42)
+    
+    * support alpha_thre for rendering and ray marching. default to zero
+    
+    * bump version
+
+[33mcommit daf3559a792a2f342cc6794a76d8093a322c71e0[m
+Author: Matthew Tancik <mattt4001@gmail.com>
+Date:   Sun Oct 2 21:58:12 2022 -0700
+
+    bump version (#41)
+    
+    * rename nerfactory to nerfstudio
+    
+    * bump version
+
+[33mcommit 48245a806b350473c74980001063e0faac45c9ec[m
+Author: Matthew Tancik <mattt4001@gmail.com>
+Date:   Sun Oct 2 21:56:35 2022 -0700
+
+    rename nerfactory to nerfstudio (#40)
+
+[33mcommit 00b2bbd1588b3534e563d2907aa2304d1ae784d8[m
+Author: Matthew Tancik <mattt4001@gmail.com>
+Date:   Sun Oct 2 20:45:36 2022 -0700
+
+    Lazy load ContractionType (#39)
+
+[33mcommit 237b85e4f62db7571508e85d975bcd0547d4684a[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Fri Sep 30 23:58:49 2022 -0700
+
+    tiny bug fix for alpha rendering; remove the pipeline function (#38)
+    
+    * tiny bug fix for alpha rendering; remove the pipeline function
+    
+    * fix import
+
+[33mcommit d1e7ddce5a742c576f1ce8bda685106e77bf6547[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Sep 28 15:38:21 2022 -0700
+
+    Docs (#37)
+    
+    * update doc and bump version
+    
+    * update docs with final scores
+    
+    * minor fix
+
+[33mcommit 2ff8229aba39273ebd5bdfd645a2e1c1d9ad5837[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Sep 28 14:51:12 2022 -0700
+
+    Docs (#36)
+    
+    * update doc and bump version
+    
+    * update docs with final scores
+
+[33mcommit c0cb5e22bb3550c6f04672e579c0a7b8e2784c11[m
+Author: Sara Fridovich-Keil <sfk@eecs.berkeley.edu>
+Date:   Wed Sep 28 11:24:31 2022 -0700
+
+    Update README.md
+
+[33mcommit 264cf468454878ff2682b0cd171ae15985127443[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Sep 28 10:34:00 2022 -0700
+
+    update doc and bump version (#35)
+
+[33mcommit b969818e263af6cc67f4d4de76791a5a812b6378[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Sep 28 10:16:54 2022 -0700
+
+    Docs (#34)
+    
+    * ngp doc
+    
+    * fix doc title
+    
+    * benchmark ngp is done.
+    
+    * finer training schedule for mlp-based nerfs
+    
+    * slightly doc update
+    
+    * update index
+    
+    * fix contraction issue
+    
+    * enable auto aabb
+    
+    * before launch
+    
+    * benchmark
+
+[33mcommit f140e483cb943400f9e3c19d7e7fe3abbc68f0c8[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Sep 27 20:03:28 2022 -0700
+
+    Docs (#33)
+    
+    * ngp doc
+    
+    * fix doc title
+    
+    * benchmark ngp is done.
+    
+    * finer training schedule for mlp-based nerfs
+    
+    * slightly doc update
+    
+    * update index
+
+[33mcommit b2a0170ae34e202dbe40d7e58b3dc47782bb9c59[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Sep 27 18:00:47 2022 -0700
+
+    ngp doc (#32)
+    
+    * ngp doc
+    
+    * fix doc title
+
+[33mcommit 4419a2c49990be61248f41fe9c50540637828c50[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Wed Sep 28 00:44:49 2022 +0000
+
+    every 5k steps; examples doc
+
+[33mcommit 15f1c2a5d8031d138ccc9b78cdca3b435b9e4cbc[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Wed Sep 28 00:12:06 2022 +0000
+
+    index page
+
+[33mcommit 38ef42106d2ade8e97ca223dd1a691998a1c7144[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Wed Sep 28 00:03:25 2022 +0000
+
+    index doc
+
+[33mcommit 8dcfbad94c2613871ff5959f8b7d00d7b6b40523[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Sep 27 16:08:54 2022 -0700
+
+    Reformat (#31)
+    
+    * seems working
+    
+    * contraction func in cuda
+    
+    * Update type
+    
+    * More type updates
+    
+    * disable DDA for contraction
+    
+    * update contraction perfom in readme
+    
+    * 360 data: Garden
+    
+    * eval at max_steps
+    
+    * add perform of 360 to readme
+    
+    * fix contraction scaling
+    
+    * tiny hot fix
+    
+    * new volrend
+    
+    * cleanup ray_marching.cu
+    
+    * cleanup backend
+    
+    * tests
+    
+    * cleaning up Grid
+    
+    * fix doc for grid base class
+    
+    * check and fix for contraction
+    
+    * test grid
+    
+    * rendering and marching
+    
+    * transmittance_compress verified
+    
+    * rendering is indeed faster
+    
+    * pipeline is working
+    
+    * lego example
+    
+    * cleanup
+    
+    * cuda folder is cleaned up! finally!
+    
+    * cuda formatting
+    
+    * contraction verify
+    
+    * upgrade grid
+    
+    * test for ray marching
+    
+    * pipeline
+    
+    * ngp with contraction
+    
+    * train_ngp runs but slow
+    
+    * trasmittance seperate to two. Now NGP is as fast as before
+    
+    * verified faster than before
+    
+    * bug fix for contraction
+    
+    * ngp contraction fix
+    
+    * tiny cleanup
+    
+    * contraction works! yay!
+    
+    * contraction with tanh seems working
+    
+    * minor update
+    
+    * support alpha rendering
+    
+    * absorb visibility to ray marching
+    
+    * tiny import update
+    
+    * get rid of contraction temperture;
+    
+    * doc for ContractionType
+    
+    * doc for Grid
+    
+    * doc for grid.py is done
+    
+    * doc for ray marching
+    
+    * rendering function
+    
+    * fix doc for rendering
+    
+    * doc for vol rend
+    
+    * autosummary for utils
+    
+    * fix autosummary line break
+    
+    * utils docs
+    
+    * api doc is done
+    
+    * starting work on examples
+    
+    * contraction for npg is in python now
+    
+    * further clean up examples
+    
+    * mlp nerf is running
+    
+    * dnerf is in
+    
+    * update readme command
+    
+    * merge
+    
+    * disable pylint error for now
+    
+    * reformatting and skip tests without cuda
+    
+    * fix the type issue for contractiontype
+    
+    * fix cuda attribute issue
+    
+    * bump to 0.1.0
+    
+    Co-authored-by: Matt Tancik <tancik@berkeley.edu>
+
+[33mcommit a761160362b4b24134ab374b98e5d6f3ef0e39fa[m
+Author: Matthew Tancik <mattt4001@gmail.com>
+Date:   Tue Sep 20 18:01:21 2022 -0700
+
+    Update README.md with badges.
+
+[33mcommit 29c59cab0228b91117b360cf5a5d9bf80ee38572[m
+Author: Matthew Tancik <mattt4001@gmail.com>
+Date:   Tue Sep 20 17:59:22 2022 -0700
+
+    add code checks and linting (#28)
+    
+    * add code checks and linting
+    
+    * Always clean docs folder
+
+[33mcommit 1bcf42f1f4047edf7c187e5e3b5a538d579398e8[m
+Author: Matthew Tancik <mattt4001@gmail.com>
+Date:   Tue Sep 20 10:06:52 2022 -0700
+
+    Fix typos (#27)
+
+[33mcommit 01e12848c90370329bc5a5d7498438415af49398[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Mon Sep 19 23:45:24 2022 -0700
+
+    DDA fix (#26)
+    
+    * fix dda marching
+    
+    * bump to 0.0.9
+    
+    * update test
+    
+    * mark readme as v0.0.8
+
+[33mcommit b9ce1c5bfd498613b3639bce9e0794aa2b9633fb[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Tue Sep 20 04:44:41 2022 +0000
+
+    cuda version of occ query
+
+[33mcommit b6a5694eb0f93792e01cba63a24f07f2dd73a3fd[m
+Author: Brent Yi <yibrenth@gmail.com>
+Date:   Mon Sep 19 19:46:04 2022 -0700
+
+    Fix link :-) (#25)
+
+[33mcommit 9f0468addca7c7050f552c0d9848ecd5901e4fd7[m
+Author: Matthew Tancik <mattt4001@gmail.com>
+Date:   Sun Sep 18 14:14:19 2022 -0700
+
+    Minor type fixes (#24)
+
+[33mcommit 93c059ea71b95963cecd0929016a89d41665ef52[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Sat Sep 17 22:39:55 2022 -0700
+
+    fix doc (#23)
+    
+    * dyn
+    
+    * clean up for dyn
+    
+    * update test
+    
+    * ngp is up and running but slow
+    
+    * benchmark on three examples
+    
+    * fix and update ngp in readme
+    
+    * clean up and expose volumetric_rendering_pipeline
+    
+    * update doc and fix import
+    
+    * fix import
+    
+    * fix doc
+
+[33mcommit ef812085d6a4e34066e175b97e63ee04dfb6fe89[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Sat Sep 17 22:10:15 2022 -0700
+
+    support dnerf. cleanup api. expose rendering pipeline (#22)
+    
+    * dyn
+    
+    * clean up for dyn
+    
+    * update test
+    
+    * ngp is up and running but slow
+    
+    * benchmark on three examples
+    
+    * fix and update ngp in readme
+    
+    * clean up and expose volumetric_rendering_pipeline
+    
+    * update doc and fix import
+    
+    * fix import
+
+[33mcommit 08761ab8592a144781c91ee1a263d0a818ab5da2[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sat Sep 17 22:47:15 2022 +0000
+
+    example with vanilla nerf
+
+[33mcommit f66bacfafe636aa0b99e2e5525659c34dea6365e[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sat Sep 17 20:16:58 2022 +0000
+
+    vanilla nerf examples
+
+[33mcommit 255352aaaccaa3d4502fbffbf36df72e9bc626c2[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Sat Sep 17 09:52:39 2022 -0700
+
+    enable default None for occ binary (#21)
+    
+    * typehints into description
+    
+    * speed up occ field by 20%
+    
+    * tests
+    
+    * fix docs
+    
+    * backward in tests
+    
+    * cleanup volumetric rendering func
+    
+    * enable default None for occ binary
+
+[33mcommit d16d5b7430c1d5414b49740d2ccab58e8c0e946c[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Sat Sep 17 00:14:01 2022 -0700
+
+    tests (#20)
+    
+    * typehints into description
+    
+    * speed up occ field by 20%
+    
+    * tests
+    
+    * fix docs
+    
+    * backward in tests
+    
+    * cleanup volumetric rendering func
+
+[33mcommit 1d38afa11cb521304ed88e7eda8da61dc65fb851[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Fri Sep 16 22:13:09 2022 -0700
+
+    typehints into description (#19)
+
+[33mcommit dbc2181cecb124f26b54c7d8acbb3adb23d61d5a[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sat Sep 17 01:08:51 2022 +0000
+
+    small fix
+
+[33mcommit d022177ac9ae0fa14845de38d4babf8a8cbdbd43[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Fri Sep 16 18:06:19 2022 -0700
+
+    Docs (#18)
+    
+    * update doc title
+    
+    * update to pip install
+    
+    * cleanup docs
+
+[33mcommit cbaedda7ec67974547da3d6292d7fc5815911fe6[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Fri Sep 16 16:22:32 2022 -0700
+
+    update doc title (#17)
+
+[33mcommit 766429e8539bc6829ed4e5e2135b7adcef230702[m
+Author: Matt Tancik <tancik@berkeley.edu>
+Date:   Fri Sep 16 16:16:52 2022 -0700
+
+    Fix attribute bug
+
+[33mcommit 7995c54af78e5598cdea02f1d6775f5a5f819450[m
+Author: Matthew Tancik <mattt4001@gmail.com>
+Date:   Fri Sep 16 15:01:20 2022 -0700
+
+    Fix typing errors (#16)
+    
+    * Fix typing errors
+    
+    * Add aabb
+
+[33mcommit cc700f5ba8ed38e3fd5f85233ffb5586cd2ed54b[m
+Author: Matthew Tancik <mattt4001@gmail.com>
+Date:   Fri Sep 16 11:04:29 2022 -0700
+
+    Include pip package data (#15)
+
+[33mcommit 17558c2a0825367cd697bb10b4b3f449b9f1b6ff[m
+Author: Matthew Tancik <mattt4001@gmail.com>
+Date:   Fri Sep 16 09:40:26 2022 -0700
+
+    Move dependencies to allow pypi upload (#14)
+
+[33mcommit 7804cb2fe5f093a757564fbba1be72633b3e01df[m
+Author: Ethan Weber <eweb0124@gmail.com>
+Date:   Fri Sep 16 09:14:47 2022 -0700
+
+    adding near plane (#12)
+    
+    * small fixes to occupancy code
+    
+    * adding near plane
+    
+    * adding near plane
+    
+    * removed files. make sure to squash
+    
+    * upgrade version
+
+[33mcommit 98f820b18c4e71c610932d085b069f15a2b7d553[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Fri Sep 16 08:14:07 2022 -0700
+
+    swith to pytorch theme (#13)
+    
+    * swith to pytorch theme
+    
+    * doc deps
+
+[33mcommit f3a7f1752f9b08331d62b3e764d04425e138ec54[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Fri Sep 16 05:47:00 2022 -0700
+
+    Delete rgb_train.png
+
+[33mcommit 37bd6d7d77b606e26d874ef0d34f49f79d6aa5c3[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Fri Sep 16 05:46:52 2022 -0700
+
+    Delete acc_binary_train.png
+
+[33mcommit 58f8fc27b69cf9d0cd9f4eaeaa9f8be7b6f0ef7d[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Fri Sep 16 05:46:43 2022 -0700
+
+    Delete acc_binary_test.png
+
+[33mcommit 3f13fa534bdd29f477d18086ddf8dbf37675e7b2[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Thu Sep 15 21:02:27 2022 -0700
+
+    More benchmarks (#11)
+    
+    * support stratified sampling
+    
+    * bump version
+    
+    * more benchmark
+
+[33mcommit 19c7b89f55fe4b395208ff473aa464e1c7bd2b7f[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Thu Sep 15 19:48:43 2022 -0700
+
+    support stratified sampling (#10)
+    
+    * support stratified sampling
+    
+    * bump version
+
+[33mcommit 7f9ecf67a87799b8e281450352f720c6091873d7[m
+Author: Ethan Weber <ethanweber@berkeley.edu>
+Date:   Thu Sep 15 19:03:52 2022 -0700
+
+    small fixes to occupancy code (#8)
+
+[33mcommit ed327e36fd7156344c2e2d9cb2523edaf7862e52[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Sep 14 22:04:13 2022 -0700
+
+    Ruilongli/docs (#6)
+    
+    * build doc should wokr
+    
+    * prettier doc
+    
+    * Tensor
+
+[33mcommit 00cbf55ebda06d3ba9c698d7fdf1636f5419e3e5[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Sep 14 18:25:41 2022 -0700
+
+    build doc should wokr (#5)
+
+[33mcommit 7cf85047fa23cc2dbf230b0ddab537a597d01aef[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Thu Sep 15 01:15:11 2022 +0000
+
+    fix doc
+
+[33mcommit b73def228d120eb23c05c7689819843b1fb9b335[m
+Author: Matthew Tancik <mattt4001@gmail.com>
+Date:   Wed Sep 14 18:08:33 2022 -0700
+
+    Lazy load cuda (#4)
+
+[33mcommit 497d404ec80dd34e502019a1a4ff8e56dc065ee8[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Wed Sep 14 23:53:51 2022 +0000
+
+    update gitignore
+
+[33mcommit 840f236654e3ef736bdd53bd6b47d7dc5ee07423[m
+Merge: 4bdde5a 60edf7b
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Wed Sep 14 17:07:38 2022 -0700
+
+    Merge pull request #3 from KAIR-BAIR/tancik/build_docs
+    
+    Build docs
+
+[33mcommit 60edf7ba8e0173467d0354adb6501f3c651658fb[m
+Author: Matt Tancik <tancik@berkeley.edu>
+Date:   Wed Sep 14 17:04:30 2022 -0700
+
+    Build docs
+
+[33mcommit 4bdde5a37d020f3e743a38aa233e5048a3739feb[m
+Merge: 776dff8 59f31c6
+Author: Matthew Tancik <mattt4001@gmail.com>
+Date:   Wed Sep 14 16:54:27 2022 -0700
+
+    Merge pull request #2 from KAIR-BAIR/tancik/0.0.3
+    
+    Update for pypi
+
+[33mcommit 59f31c61bc1da9e7fb21592d98defca1a6a3235e[m
+Author: Matt Tancik <tancik@berkeley.edu>
+Date:   Wed Sep 14 16:54:02 2022 -0700
+
+    Update for pypi
+
+[33mcommit 776dff865e484bf5a00f7b3bf512ca2aaa54f313[m
+Author: Matthew Tancik <mattt4001@gmail.com>
+Date:   Wed Sep 14 16:15:42 2022 -0700
+
+    Create LICENSE
+
+[33mcommit 7016b11ca22ba7ef38358a603ad3b9e535509093[m
+Merge: 5697b2b 24a46a2
+Author: Matthew Tancik <mattt4001@gmail.com>
+Date:   Wed Sep 14 13:01:19 2022 -0700
+
+    Merge pull request #1 from KAIR-BAIR/tancik/update_project_settings
+    
+    Update project settings
+
+[33mcommit 24a46a2edb05c8d1a194b77ddb17c3036519aaea[m
+Author: Matt Tancik <tancik@berkeley.edu>
+Date:   Wed Sep 14 12:18:48 2022 -0700
+
+    Update project settings
+
+[33mcommit 5697b2b29cb4866f338b1f56c20b63f421d1d015[m
+Author: Ruilong Li(李瑞龙) <ruilongli94@gmail.com>
+Date:   Tue Sep 13 20:51:47 2022 -0700
+
+    fix doc
+
+[33mcommit e0a0db1ec0a644b01537723c946c5161b641e897[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Tue Sep 13 20:05:47 2022 +0000
+
+    get rid of scatter max
+
+[33mcommit b73fa67b5660cec35e4d393c5bc30f8bcde016a9[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Tue Sep 13 20:03:27 2022 +0000
+
+    expose utils functions
+
+[33mcommit 040b0b95b975ffe71b7f671ffaa11fbb5f4715de[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Tue Sep 13 08:49:42 2022 +0000
+
+    GPU card in readme
+
+[33mcommit 17e716afd8219b7e79f624c67a1b493a3ebc2eeb[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Tue Sep 13 08:47:14 2022 +0000
+
+    update readme. almost match training perf
+
+[33mcommit 89138ce50295a53bb4fdb44953e1bfc136b63dcf[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Tue Sep 13 08:43:13 2022 +0000
+
+    rm png
+
+[33mcommit dc73eff4b501fa79a12bd04a62bda210eae0f7e2[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Tue Sep 13 08:42:51 2022 +0000
+
+    update readme performance
+
+[33mcommit 0c7b5320183f2545ed391c94183d1d7c2555480d[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Tue Sep 13 07:57:18 2022 +0000
+
+    update tracexp
+
+[33mcommit 09669d2aea49f3fe5e034d91e491c978d0a92776[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Mon Sep 12 23:25:05 2022 +0000
+
+    update readme
+
+[33mcommit a0ab026568c33f7235026f5d23360d61fc542fd8[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Mon Sep 12 08:05:15 2022 +0000
+
+    update steps_counter to int
+
+[33mcommit 9bddde486958741ce2b6bb2d1e8b61af23bb152f[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Mon Sep 12 07:49:20 2022 +0000
+
+    steam
+
+[33mcommit ba04948386b7f138ea064e372c6dfef574bc6a76[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Mon Sep 12 07:04:05 2022 +0000
+
+    a bit cleaning
+
+[33mcommit 5b6f0c6170d4ec6e6f59888332c60dcbe8b00474[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Mon Sep 12 06:41:31 2022 +0000
+
+    remove alive_mask
+
+[33mcommit 224e217de59951e73d5124857d9ae84a94acd0a7[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Mon Sep 12 04:53:58 2022 +0000
+
+    renaming
+
+[33mcommit de4b66a1a5b0d65180a879c7d25cb45baefe2334[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Mon Sep 12 04:50:11 2022 +0000
+
+    renaming
+
+[33mcommit 4a4bbabab7f2d33360b6e426328a7620ecc02a93[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Mon Sep 12 04:43:44 2022 +0000
+
+    cleanup
+
+[33mcommit 224ba1a7d7a5c09f55dc3a739fc236f4f7d0f821[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Mon Sep 12 04:07:00 2022 +0000
+
+    update readme
+
+[33mcommit c3ab153e935292f5645e3c90347498de25dfbc14[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Mon Sep 12 03:59:43 2022 +0000
+
+    cumsum for marching
+
+[33mcommit 86b90ea63e26ea5fe2fd68eff63794bb4f378ee7[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Mon Sep 12 02:08:49 2022 +0000
+
+    cleanup
+
+[33mcommit 99562b183877c2f9a50c13c2c02d74b9f61e138c[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sun Sep 11 19:36:36 2022 +0000
+
+    compute weight
+
+[33mcommit b524287af253cfff0780ea1b4e12ff6b8caef3df[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sun Sep 11 17:16:35 2022 +0000
+
+    bmk on train set
+
+[33mcommit 64ad63cd8413811230c6421bd5d4c7bfd560c46b[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sun Sep 11 17:08:34 2022 +0000
+
+    inference first for vol render
+
+[33mcommit 16324602ddb69b9f38f86747a6d96a6f3da4031c[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sun Sep 11 07:09:02 2022 +0000
+
+    benchmark
+
+[33mcommit 96211bbafe2c1a87e2e847c09de6f4bf65c6d61d[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sat Sep 10 18:33:22 2022 +0000
+
+    wtf
+
+[33mcommit 65bebd64cb9af713876fbf8b87b91fcbf14df477[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sat Sep 10 07:30:40 2022 +0000
+
+    training recepi
+
+[33mcommit 630f2596663207c78cdf612e232fb2ebaabce619[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sat Sep 10 01:23:57 2022 +0000
+
+    random bkgd is useless
+
+[33mcommit 6093da8fcc6b6a820f29906480e1bdb6d675a648[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Sat Sep 10 00:56:04 2022 +0000
+
+    better with tips
+
+[33mcommit b5a2af68485464f1a6e4180df2cd83ab428adc47[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Sep 9 23:29:10 2022 +0000
+
+    speedup data loading
+
+[33mcommit bc7f7fffc855c38c640aeb6968c6c5e8c5cf24a2[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Sep 9 21:08:33 2022 +0000
+
+    train+val set
+
+[33mcommit 1e8f3427384c1b15a23d1fc8fcfbc1b71c24fb3d[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Sep 9 17:48:32 2022 +0000
+
+    add comment
+
+[33mcommit b3a141aa2907672da20ece86dc9a1eb0790a60cc[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Sep 9 17:44:23 2022 +0000
+
+    switch to test set
+
+[33mcommit 075e073bbcc2e9f65539cdb27ca6887e61bdbf63[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Sep 9 17:22:26 2022 +0000
+
+    update doc
+
+[33mcommit 873d050af30ad374d0ff96e7faade23a481c5c5f[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Sep 9 07:06:50 2022 +0000
+
+    update performance with fixed random seed
+
+[33mcommit 83ae4fd418e2993af49e6da8f5e4f797b31f9e51[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Sep 9 06:10:56 2022 +0000
+
+    update README
+
+[33mcommit f21fb818772c0f257b57209c3eed93c173366404[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Sep 9 06:03:15 2022 +0000
+
+    readme
+
+[33mcommit 3142271242688f59e6a450b3cb0ca180a8e2eef2[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Fri Sep 9 00:11:38 2022 +0000
+
+    add examples
+
+[33mcommit b33d0d1057f157985a23f2c05143877e0694cb69[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Thu Sep 8 23:04:14 2022 +0000
+
+    small fix on doc
+
+[33mcommit e813bcaa8a7c899c5ae1094284a9c5793a1a5666[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Thu Sep 8 22:00:43 2022 +0000
+
+    occ field doc
+
+[33mcommit 1ed5257dfd37ef5ee906c9b919460ee4342dfa57[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Thu Sep 8 19:29:36 2022 +0000
+
+    fix doc
+
+[33mcommit 7022c4b1697b7c6d636793a985d87c543f576d24[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Thu Sep 8 19:27:48 2022 +0000
+
+    python 3.9 -> 3.8
+
+[33mcommit a4414f1ae2db14fe7ba7d8ed8e9df48e60394977[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Thu Sep 8 19:27:04 2022 +0000
+
+    example of use
+
+[33mcommit f92d19103f8c0371eca115444721b98d24009c2a[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Thu Sep 8 18:37:28 2022 +0000
+
+    minor change in doc
+
+[33mcommit 5bf04213c1e8777d32934771bb20f4f71c162e8d[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Thu Sep 8 18:27:43 2022 +0000
+
+    docs
+
+[33mcommit 5009fc120fb05dbedf823d25ae47bf740f17a28a[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Thu Sep 8 08:00:18 2022 +0000
+
+    add occ field
+
+[33mcommit 298ffd0234a54aa6a355a72642b94fd7ff80418e[m
+Author: Ruilong Li <ruilongli94@gmail.com>
+Date:   Thu Sep 8 07:47:29 2022 +0000
+
+    init

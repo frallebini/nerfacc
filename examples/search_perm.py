@@ -11,6 +11,8 @@ import wandb
 from datasets.nerf_synthetic import SubjectLoader
 from nerfacc.estimators.occ_grid import OccGridEstimator
 from radiance_fields.ngp import NGPRadianceField
+from radiance_fields.ngp_single_mlp import NGPRadianceFieldSingleMlp
+
 from torch import Tensor
 from tqdm import tqdm
 from typing import Any, Dict, List
@@ -20,8 +22,11 @@ from utils import render_image_with_occgrid_test
 def get_state_dict(cfg: Dict[str, Any]) -> Dict[str, Tensor]:
     sd_A = torch.load(cfg["path_A"])
     sd_B = torch.load(cfg["path_B"])
-    sd_A["radiance_field"]["mlp_base.1.params"] = sd_B["radiance_field"]["mlp_base.1.params"]  # density mlp
-    sd_A["radiance_field"]["mlp_head.params"] = sd_B["radiance_field"]["mlp_head.params"]  # color mlp
+    if "single" in cfg["run_name"]:
+        sd_A["radiance_field"]["mlp.params"] = sd_B["radiance_field"]["mlp.params"]
+    else:
+        sd_A["radiance_field"]["mlp_base.1.params"] = sd_B["radiance_field"]["mlp_base.1.params"]  # density mlp
+        sd_A["radiance_field"]["mlp_head.params"] = sd_B["radiance_field"]["mlp_head.params"]  # color mlp
 
     return sd_A
 
@@ -60,6 +65,9 @@ def search_perm(cfg: Dict[str, Any]) -> None:
     alpha_thre = 0.0
     cone_angle = 0.0
 
+    is_sine = "sine" in cfg["run_name"]
+    is_single_mlp = "single" in cfg["run_name"]
+
     test_dataset = SubjectLoader(
         subject_id=scene,
         root_fp=data_root,
@@ -69,8 +77,25 @@ def search_perm(cfg: Dict[str, Any]) -> None:
         **test_dataset_kwargs,
     )
 
-    estimator = OccGridEstimator(roi_aabb=aabb, resolution=grid_resolution, levels=grid_nlvl).cuda()
-    radiance_field = NGPRadianceField(aabb=estimator.aabbs[-1], use_torch_encoding=True).cuda()
+    estimator = OccGridEstimator(
+        roi_aabb=aabb, 
+        resolution=grid_resolution, 
+        levels=grid_nlvl
+    ).cuda()
+    
+    if is_single_mlp:
+        radiance_field = NGPRadianceFieldSingleMlp(
+            aabb=estimator.aabbs[-1], 
+            encoding_type="torch",
+            mlp_activation="Sine" if is_sine else "ReLU"
+        ).cuda()
+    else:
+        radiance_field = NGPRadianceField(
+            aabb=estimator.aabbs[-1], 
+            encoding_type="torch",
+            mlp_activation="Sine" if is_sine else "ReLU"
+        ).cuda()
+
 
     psnr_best = 0
     # permute columns of tensor of shape (n, 2)
@@ -81,7 +106,10 @@ def search_perm(cfg: Dict[str, Any]) -> None:
         sd = get_state_dict(cfg)
 
         # get grids
-        grids = [sd["radiance_field"][f"mlp_base.0.levels.{i}.embedding.weight"].cpu() for i in range(16)]
+        if is_single_mlp:
+            grids = [sd["radiance_field"][f"encoding.levels.{i}.embedding.weight"].cpu() for i in range(16)]
+        else:
+            grids = [sd["radiance_field"][f"mlp_base.0.levels.{i}.embedding.weight"].cpu() for i in range(16)]
         grids = np.array(grids, dtype="object")
 
         # permute grids
@@ -92,7 +120,10 @@ def search_perm(cfg: Dict[str, Any]) -> None:
 
         # set grids
         for i in range(16):
-            sd["radiance_field"][f"mlp_base.0.levels.{i}.embedding.weight"] = grids[i].cuda()
+            if is_single_mlp:
+                sd["radiance_field"][f"encoding.levels.{i}.embedding.weight"] = grids[i].cuda()
+            else:
+                sd["radiance_field"][f"mlp_base.0.levels.{i}.embedding.weight"] = grids[i].cuda()
         estimator.load_state_dict(sd["estimator"])
         radiance_field.load_state_dict(sd["radiance_field"])
 
@@ -106,20 +137,25 @@ def search_perm(cfg: Dict[str, Any]) -> None:
             rays = data["rays"]
             pixels = data["pixels"]
 
-            # rendering
-            rgb, _, _, _ = render_image_with_occgrid_test(
-                1024,
-                # scene
-                radiance_field,
-                estimator,
-                rays,
-                # rendering options
-                near_plane=near_plane,
-                render_step_size=render_step_size,
-                render_bkgd=render_bkgd,
-                cone_angle=cone_angle,
-                alpha_thre=alpha_thre,
-            )
+            try:
+                # rendering
+                rgb, _, _, _ = render_image_with_occgrid_test(
+                    1024,
+                    # scene
+                    radiance_field,
+                    estimator,
+                    rays,
+                    # rendering options
+                    near_plane=near_plane,
+                    render_step_size=render_step_size,
+                    render_bkgd=render_bkgd,
+                    cone_angle=cone_angle,
+                    alpha_thre=alpha_thre,
+                )
+            except RuntimeError:
+                tqdm.write(f"skipped binary mask {[int(b) for b in mask]}")
+                continue
+
             mse = F.mse_loss(rgb, pixels)
             psnr = -10.0 * torch.log(mse) / np.log(10.0)
             wandb.log({"test/psnr": psnr}, step=step)
@@ -131,12 +167,15 @@ def search_perm(cfg: Dict[str, Any]) -> None:
 
 
 if __name__ == "__main__":
+    scene = "chair"
+    activation = "sine_single"
+
     cfg = {
-        "run_name": "drums_search_perm_sine",
+        "run_name": f"{scene}_search_perm_{activation}",
         "sample_idx": 42,
-        "path_A": "ckpts/drums_torch_sine_A.pt",
-        "path_B": "ckpts/drums_torch_sine_B.pt",
-        "path_out": "ckpts/drums_torch_sine_perm.pt"
+        "path_A": f"ckpts/{scene}_torch_{activation}_A.pt",
+        "path_B": f"ckpts/{scene}_torch_{activation}_B.pt",
+        "path_out": f"ckpts/{scene}_torch_{activation}_perm.pt"
     }
 
     wandb.init(
