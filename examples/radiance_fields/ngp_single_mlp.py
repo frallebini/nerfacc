@@ -33,6 +33,7 @@ class NGPRadianceFieldSingleMlp(torch.nn.Module):
         self,
         aabb: Union[torch.Tensor, List[float]],
         num_dim: int = 3,
+        use_viewdirs: bool = True,
         density_activation: Callable = lambda x: trunc_exp(x - 1),
         unbounded: bool = False,
         base_resolution: int = 16,
@@ -47,6 +48,7 @@ class NGPRadianceFieldSingleMlp(torch.nn.Module):
             aabb = torch.tensor(aabb, dtype=torch.float32)
         self.register_buffer("aabb", aabb)
         self.num_dim = num_dim
+        self.use_viewdirs = use_viewdirs
         self.density_activation = density_activation
         self.unbounded = unbounded
         self.base_resolution = base_resolution
@@ -58,15 +60,16 @@ class NGPRadianceFieldSingleMlp(torch.nn.Module):
             (np.log(max_resolution) - np.log(base_resolution)) / (n_levels - 1)
         ).tolist()
 
-        self.direction_encoding = tcnn.Encoding(
-            n_input_dims=num_dim,
-            encoding_config={
-                "otype": "SphericalHarmonics",
-                "n_dims_to_encode": 3,
-                "degree": 4,
-            },
-            seed=random.randint(0, sys.maxsize),
-        )
+        if use_viewdirs:
+            self.direction_encoding = tcnn.Encoding(
+                n_input_dims=num_dim,
+                encoding_config={
+                    "otype": "SphericalHarmonics",
+                    "n_dims_to_encode": 3,
+                    "degree": 4,
+                },
+                seed=random.randint(0, sys.maxsize),
+            )
 
         encoding_config={
             "otype": "HashGrid",
@@ -99,8 +102,8 @@ class NGPRadianceFieldSingleMlp(torch.nn.Module):
         mlp_type = "CutlassMLP" if mlp_activation == "Sine" else "FullyFusedMLP"
         self.mlp = tcnn.Network(
             n_input_dims=
-                (self.encoding.n_output_dims if encoding_type == "cuda" else self.encoding.output_dim) 
-                + self.direction_encoding.n_output_dims,
+                (self.encoding.n_output_dims if encoding_type == "cuda" else self.encoding.output_dim) +
+                (self.direction_encoding.n_output_dims if use_viewdirs else 0),
             n_output_dims=4,
             network_config={
                 "otype": mlp_type,
@@ -121,13 +124,16 @@ class NGPRadianceFieldSingleMlp(torch.nn.Module):
         selector = ((x > 0.0) & (x < 1.0)).all(dim=-1)
         x_emb = self.encoding(x)
 
-        if dir is not None:
-            dir = (dir + 1.0) / 2.0
-            d_emb = self.direction_encoding(dir)
+        if self.use_viewdirs:
+            if dir is not None:
+                dir = (dir + 1.0) / 2.0
+                d_emb = self.direction_encoding(dir)
+            else:
+                d_emb = torch.rand(x.shape[0], self.direction_encoding.n_output_dims).to(x_emb)
+            mlp_in = torch.cat((x_emb, d_emb), dim=-1)
         else:
-            d_emb = torch.rand(x.shape[0], self.direction_encoding.n_output_dims).to(x_emb)
-
-        mlp_in = torch.cat((x_emb, d_emb), dim=-1)
+            mlp_in = x_emb
+            
         mlp_out = self.mlp(mlp_in)
 
         rgb, density_before_activation = mlp_out[..., :3], mlp_out[..., 3]

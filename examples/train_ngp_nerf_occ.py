@@ -81,6 +81,11 @@ parser.add_argument(
     help="whether to use a single density + color MLP"
 )
 parser.add_argument(
+    "--use-viewdirs", 
+    action="store_true",
+    help="whether to use the viewing direction as input to the (color/single) MLP"
+)
+parser.add_argument(
     "--save-init", 
     action="store_true",
     help="whether to save the initial model weights"
@@ -94,7 +99,8 @@ args = parser.parse_args()
 
 run_name = \
     f"{args.scene}_{args.encoding}_{args.activation.lower()}" + \
-    f"{'_single' if args.use_single_mlp else ''}_{args.model_name}"
+    f"{'_single' if args.use_single_mlp else ''}" + \
+    f"{'_viewdir' if args.use_viewdirs else ''}_{args.model_name}"
 wandb.init(
         entity="frallebini",
         project="nerfacc",
@@ -180,19 +186,22 @@ estimator = OccGridEstimator(
 if args.use_single_mlp:
     radiance_field = NGPRadianceFieldSingleMlp(
         aabb=estimator.aabbs[-1],
+        use_viewdirs=args.use_viewdirs,
         encoding_type=args.encoding,
         mlp_activation=args.activation,
     ).to(device)
 else:
     radiance_field = NGPRadianceField(
         aabb=estimator.aabbs[-1],
+        use_viewdirs=args.use_viewdirs,
         encoding_type=args.encoding,
         mlp_activation=args.activation,
     ).to(device)
 
 sd_path = \
     f"ckpts/init_{args.model_name}_{args.activation.lower()}" + \
-    f"{'_single' if args.use_single_mlp else ''}.pt"
+    f"{'_single' if args.use_single_mlp else ''}" + \
+    f"{'_viewdir' if args.use_viewdirs else ''}.pt"
 
 if args.save_init:
     sd = {

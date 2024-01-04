@@ -67,6 +67,7 @@ def search_perm(cfg: Dict[str, Any]) -> None:
 
     is_sine = "sine" in cfg["run_name"]
     is_single_mlp = "single" in cfg["run_name"]
+    use_viewdirs = "viewdir" in cfg["run_name"]
 
     test_dataset = SubjectLoader(
         subject_id=scene,
@@ -85,13 +86,15 @@ def search_perm(cfg: Dict[str, Any]) -> None:
     
     if is_single_mlp:
         radiance_field = NGPRadianceFieldSingleMlp(
-            aabb=estimator.aabbs[-1], 
+            aabb=estimator.aabbs[-1],
+            use_viewdirs=use_viewdirs,
             encoding_type="torch",
             mlp_activation="Sine" if is_sine else "ReLU"
         ).cuda()
     else:
         radiance_field = NGPRadianceField(
-            aabb=estimator.aabbs[-1], 
+            aabb=estimator.aabbs[-1],
+            use_viewdirs=use_viewdirs,
             encoding_type="torch",
             mlp_activation="Sine" if is_sine else "ReLU"
         ).cuda()
@@ -167,7 +170,7 @@ def search_perm(cfg: Dict[str, Any]) -> None:
 
 
 if __name__ == "__main__":
-    scene = "chair"
+    scene = "drums"
     activation = "sine_single"
 
     cfg = {
