@@ -1,21 +1,19 @@
 import os
 os.environ["WANDB_SILENT"] = "true"
 
-import warnings
-warnings.simplefilter(action="ignore", category=FutureWarning)
-
 import numpy as np
 import torch
 import torch.nn.functional as F
 import wandb
-from datasets.nerf_synthetic import SubjectLoader
-from nerfacc.estimators.occ_grid import OccGridEstimator
-from radiance_fields.ngp import NGPRadianceField
-from radiance_fields.ngp_single_mlp import NGPRadianceFieldSingleMlp
 
 from torch import Tensor
 from tqdm import tqdm
 from typing import Any, Dict, List
+
+from datasets.nerf_synthetic import SubjectLoader
+from nerfacc.estimators.occ_grid import OccGridEstimator
+from radiance_fields.ngp import NGPRadianceField
+from radiance_fields.ngp_single_mlp import NGPRadianceFieldSingleMlp
 from utils import render_image_with_occgrid_test
 
 
@@ -51,7 +49,7 @@ def generate_binary_masks(bit_count: int) -> List[List[bool]]:
 
 def search_perm(cfg: Dict[str, Any]) -> None:
     # dataset parameters
-    scene = "drums"
+    scene = cfg["scene"]
     data_root = "/media/data7/fballerini/datasets/nerf_synthetic"
     test_dataset_kwargs = {}
     # scene parameters
@@ -174,11 +172,12 @@ if __name__ == "__main__":
     activation = "sine_single"
 
     cfg = {
+        "scene": scene,
         "run_name": f"{scene}_search_perm_{activation}",
         "sample_idx": 42,
-        "path_A": f"ckpts/{scene}_torch_{activation}_A.pt",
-        "path_B": f"ckpts/{scene}_torch_{activation}_B.pt",
-        "path_out": f"ckpts/{scene}_torch_{activation}_perm.pt"
+        "path_A": f"ckpts/torch_{activation}/{scene}_A.pt",
+        "path_B": f"ckpts/torch_{activation}/{scene}_B.pt",
+        "path_out": f"ckpts/torch_{activation}/{scene}_perm.pt"
     }
 
     wandb.init(

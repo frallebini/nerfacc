@@ -2,20 +2,20 @@
 Copyright (c) 2022 Ruilong Li, UC Berkeley.
 """
 
-import warnings
-
-warnings.simplefilter("ignore", UserWarning)
-
 import os
 os.environ["WANDB_SILENT"] = "true"
 
-import argparse
-import time
+import warnings
+warnings.simplefilter("ignore", UserWarning)
 
+import argparse
 import numpy as np
+import time
 import torch
 import torch.nn.functional as F
 import wandb
+import yaml
+
 from lpips import LPIPS
 from pathlib import Path
 from tqdm import tqdm
@@ -28,23 +28,15 @@ from utils import (
     NERF_SYNTHETIC_SCENES,
     render_image_with_occgrid,
     render_image_with_occgrid_test,
-    set_random_seed
 )
+
+device = "cuda:0"
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    "--data_root",
+    "--cfg-path",
     type=str,
-    # default=str(Path.cwd() / "data/360_v2"),
-    default=str(Path.cwd() / "data/nerf_synthetic"),
-    help="the root dir of the dataset",
-)
-parser.add_argument(
-    "--train_split",
-    type=str,
-    default="train",
-    choices=["train", "trainval"],
-    help="which train split to use",
+    help="the path to the .yml configuration file",
 )
 parser.add_argument(
     "--scene",
@@ -54,36 +46,11 @@ parser.add_argument(
     help="which scene to use",
 )
 parser.add_argument(
-    "--encoding",
-    type=str,
-    default="combo",
-    choices=["combo", "cuda", "torch"],
-    help="which type of multi-resolution hash grid encoding to use",
-)
-parser.add_argument(
-    "--activation",
-    type=str,
-    default="ReLU",
-    # see https://github.com/NVlabs/tiny-cuda-nn/blob/master/DOCUMENTATION.md#activation-functions
-    choices=["None", "ReLU", "Leaky ReLU", "Exponential", "Sine", "Sigmoid", "Squareplus", "Softplus", "Tanh"],
-    help="which activation to use for both the density and color MLPs",
-)
-parser.add_argument(
     "--model-name",
     type=str,
     default="A",
     choices=["A", "B"],
     help="which alphanumeric label to use to refer to the model",
-)
-parser.add_argument(
-    "--use-single-mlp", 
-    action="store_true",
-    help="whether to use a single density + color MLP"
-)
-parser.add_argument(
-    "--use-viewdirs", 
-    action="store_true",
-    help="whether to use the viewing direction as input to the (color/single) MLP"
 )
 parser.add_argument(
     "--save-init", 
@@ -97,19 +64,38 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
-run_name = \
-    f"{args.scene}_{args.encoding}_{args.activation.lower()}" + \
-    f"{'_single' if args.use_single_mlp else ''}" + \
-    f"{'_viewdir' if args.use_viewdirs else ''}_{args.model_name}"
-wandb.init(
-        entity="frallebini",
-        project="nerfacc",
-        name=run_name,
-        config=args,
-)
+with open(args.cfg_path, "r") as f:
+    cfg = yaml.safe_load(f)
+data_root = cfg["data_root"]
+train_split = cfg["train_split"]
 
-device = "cuda:0"
-# set_random_seed(42)
+log2_target_sample_batch_size = cfg["log2_target_sample_batch_size"]
+lr = cfg["lr"]
+
+encoding = cfg["encoding"]["type"]
+n_levels = cfg["encoding"]["n_levels"]
+n_features_per_level = cfg["encoding"]["n_features_per_level"]
+base_resolution = cfg["encoding"]["base_resolution"]
+
+activation = cfg["mlp"]["activation"]
+use_single_mlp = cfg["mlp"]["use_single"]
+use_viewdirs = cfg["mlp"]["use_viewdirs"]
+if use_single_mlp:
+    n_neurons = cfg["mlp"]["n_neurons"]
+    n_hidden_layers = cfg["mlp"]["n_hidden_layers"]
+
+run_name = \
+    f"{args.scene}_{encoding}_{activation.lower()}" + \
+    f"{'_single' if use_single_mlp else ''}" + \
+    f"{'_viewdir' if use_viewdirs else ''}" + \
+    f"_{n_levels}_{n_features_per_level}_{base_resolution}" + \
+    f"_{args.model_name}"
+wandb.init(
+    entity="frallebini",
+    project="nerfacc",
+    name=run_name,
+    config={**cfg, **vars(args)},
+)
 
 if args.scene in MIPNERF360_UNBOUNDED_SCENES:
     from datasets.nerf_360_v2 import SubjectLoader
@@ -138,13 +124,12 @@ else:
     from datasets.nerf_synthetic import SubjectLoader
 
     # training parameters
-    max_steps = 20000
+    max_steps = 20_000
     init_batch_size = 1024
-    target_sample_batch_size = 1 << 18
+    target_sample_batch_size = 1 << log2_target_sample_batch_size
     weight_decay = (
         1e-5 if args.scene in ["materials", "ficus", "drums"] else 1e-6
     )
-    lr = 1e-2
     # scene parameters
     aabb = torch.tensor([-1.5, -1.5, -1.5, 1.5, 1.5, 1.5], device=device)
     near_plane = 0.0
@@ -162,8 +147,8 @@ else:
 
 train_dataset = SubjectLoader(
     subject_id=args.scene,
-    root_fp=args.data_root,
-    split=args.train_split,
+    root_fp=data_root,
+    split=train_split,
     num_rays=init_batch_size,
     device=device,
     **train_dataset_kwargs,
@@ -171,7 +156,7 @@ train_dataset = SubjectLoader(
 
 test_dataset = SubjectLoader(
     subject_id=args.scene,
-    root_fp=args.data_root,
+    root_fp=data_root,
     split="test",
     num_rays=None,
     device=device,
@@ -183,25 +168,37 @@ estimator = OccGridEstimator(
 ).to(device)
 
 # setup the radiance field we want to train
-if args.use_single_mlp:
+if use_single_mlp:
     radiance_field = NGPRadianceFieldSingleMlp(
         aabb=estimator.aabbs[-1],
-        use_viewdirs=args.use_viewdirs,
-        encoding_type=args.encoding,
-        mlp_activation=args.activation,
+        use_viewdirs=use_viewdirs,
+        base_resolution=base_resolution,
+        n_levels=n_levels,
+        n_features_per_level=n_features_per_level,
+        encoding_type=encoding,
+        mlp_activation=activation,
+        n_neurons=n_neurons,
+        n_hidden_layers=n_hidden_layers
     ).to(device)
 else:
     radiance_field = NGPRadianceField(
         aabb=estimator.aabbs[-1],
-        use_viewdirs=args.use_viewdirs,
-        encoding_type=args.encoding,
-        mlp_activation=args.activation,
+        use_viewdirs=use_viewdirs,
+        base_resolution=base_resolution,
+        n_levels=n_levels,
+        n_features_per_level=n_features_per_level,
+        encoding_type=encoding,
+        mlp_activation=activation,
     ).to(device)
 
-sd_path = \
-    f"ckpts/init_{args.model_name}_{args.activation.lower()}" + \
-    f"{'_single' if args.use_single_mlp else ''}" + \
-    f"{'_viewdir' if args.use_viewdirs else ''}.pt"
+sd_dir = Path(
+    f"ckpts/{encoding}_{activation.lower()}" + \
+    f"{'_single' if use_single_mlp else ''}" + \
+    f"{'_viewdir' if use_viewdirs else ''}" + \
+    f"_{n_levels}_{n_features_per_level}_{base_resolution}"
+)
+sd_dir.mkdir(parents=True, exist_ok=True)
+sd_path = sd_dir / f"init_{args.model_name}.pt"
 
 if args.save_init:
     sd = {
@@ -217,7 +214,7 @@ if args.load_init:
 
 grad_scaler = torch.cuda.amp.GradScaler(2**10)
 
-if args.use_single_mlp:
+if use_single_mlp:
     optimizer = torch.optim.AdamW(radiance_field.parameters(), lr=lr, weight_decay=weight_decay)
     scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=lr, total_steps=max_steps)
 else:
@@ -282,6 +279,7 @@ for step in tqdm(range(max_steps + 1), "train step"):
         alpha_thre=alpha_thre,
     )
     if n_rendering_samples == 0:
+        tqdm.write("0 rendering samples")
         continue
 
     if target_sample_batch_size > 0:
@@ -356,7 +354,7 @@ for step in tqdm(range(max_steps + 1), "train step"):
                 
                 if i % 10 == 0:
                     rendered = (rgb.cpu().numpy() * 255).astype(np.uint8)
-                    gt = f"{args.data_root}/{args.scene}/test/r_{i}.png"
+                    gt = f"{data_root}/{args.scene}/test/r_{i}.png"
                     wandb.log({f"test/{i}": [wandb.Image(gt), wandb.Image(rendered)]})
         
         psnr_avg = sum(psnrs) / len(psnrs)
@@ -366,9 +364,8 @@ for step in tqdm(range(max_steps + 1), "train step"):
             "test/lpips_avg": lpips_avg,
         })
 
-        Path("ckpts").mkdir(exist_ok=True)
         sd = {
             "radiance_field": radiance_field.state_dict(),
             "estimator": estimator.state_dict(),
         }
-        torch.save(sd, f"ckpts/{run_name}.pt")
+        torch.save(sd, sd_dir / f"{args.scene}_{args.model_name}.pt")

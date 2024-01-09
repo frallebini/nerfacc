@@ -163,12 +163,17 @@ class MultiResHashGrid(nn.Module):
     self.finest_resolution = finest_resolution
 
     # from paper eq (3)
-    b = math.exp((math.log(finest_resolution) - math.log(base_resolution))/(n_levels-1))
+    if n_levels > 1:
+      b = math.exp((math.log(finest_resolution) - math.log(base_resolution))/(n_levels-1))
 
     levels = []
     for level_idx in range(n_levels):
-      resolution = math.floor(base_resolution * (b ** level_idx))
-      hashmap_size = min(resolution ** dim, 2 ** log2_hashmap_size)
+      if n_levels > 1:
+        resolution = math.floor(base_resolution * (b ** level_idx))
+        hashmap_size = min(resolution ** dim, 2 ** log2_hashmap_size)
+      else:
+        resolution = base_resolution
+        hashmap_size = resolution ** dim
       levels.append(_HashGrid(
         dim = dim,
         n_features = n_features_per_level,

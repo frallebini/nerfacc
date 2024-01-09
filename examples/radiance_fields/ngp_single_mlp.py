@@ -2,12 +2,12 @@
 Copyright (c) 2022 Ruilong Li, UC Berkeley.
 """
 
+import numpy as np
 import random
 import sys
-from typing import Callable, List, Union
-
-import numpy as np
 import torch
+
+from typing import Callable, List, Union
 
 from radiance_fields.encoding import MultiResHashGrid
 from radiance_fields.ngp import _TruncExp, contract_to_unisphere
@@ -39,9 +39,12 @@ class NGPRadianceFieldSingleMlp(torch.nn.Module):
         base_resolution: int = 16,
         max_resolution: int = 4096,
         n_levels: int = 16,
+        n_features_per_level: int = 2,
         log2_hashmap_size: int = 19,
         encoding_type: str = "combo",
         mlp_activation: str = "ReLU",
+        n_neurons: int = 64,
+        n_hidden_layers: int = 3
     ) -> None:
         super().__init__()
         if not isinstance(aabb, torch.Tensor):
@@ -54,7 +57,12 @@ class NGPRadianceFieldSingleMlp(torch.nn.Module):
         self.base_resolution = base_resolution
         self.max_resolution = max_resolution
         self.n_levels = n_levels
+        self.n_features_per_level = n_features_per_level
         self.log2_hashmap_size = log2_hashmap_size
+        self.encoding_type = encoding_type
+        self.mlp_activation = mlp_activation
+        self.n_neurons = n_neurons
+        self.n_hidden_layers = n_hidden_layers
 
         per_level_scale = np.exp(
             (np.log(max_resolution) - np.log(base_resolution)) / (n_levels - 1)
@@ -74,7 +82,7 @@ class NGPRadianceFieldSingleMlp(torch.nn.Module):
         encoding_config={
             "otype": "HashGrid",
             "n_levels": n_levels,
-            "n_features_per_level": 2,
+            "n_features_per_level": n_features_per_level,
             "log2_hashmap_size": log2_hashmap_size,
             "base_resolution": base_resolution,
             "per_level_scale": per_level_scale,
@@ -109,8 +117,8 @@ class NGPRadianceFieldSingleMlp(torch.nn.Module):
                 "otype": mlp_type,
                 "activation": mlp_activation,
                 "output_activation": "None",
-                "n_neurons": 64,
-                "n_hidden_layers": 3,
+                "n_neurons": n_neurons,
+                "n_hidden_layers": n_hidden_layers,
             },
             seed=random.randint(0, sys.maxsize),
         )

@@ -2,14 +2,14 @@
 Copyright (c) 2022 Ruilong Li, UC Berkeley.
 """
 
+import numpy as np
 import random
 import sys
-from typing import Callable, List, Union
-
-import numpy as np
 import torch
+
 from torch.autograd import Function
 from torch.cuda.amp import custom_bwd, custom_fwd
+from typing import Callable, List, Union
 
 from radiance_fields.encoding import MultiResHashGrid
 
@@ -84,6 +84,7 @@ class NGPRadianceField(torch.nn.Module):
         max_resolution: int = 4096,
         geo_feat_dim: int = 15,
         n_levels: int = 16,
+        n_features_per_level: int = 2,
         log2_hashmap_size: int = 19,
         encoding_type: str = "combo",
         mlp_activation: str = "ReLU",
@@ -100,7 +101,10 @@ class NGPRadianceField(torch.nn.Module):
         self.max_resolution = max_resolution
         self.geo_feat_dim = geo_feat_dim
         self.n_levels = n_levels
+        self.n_features_per_level = n_features_per_level
         self.log2_hashmap_size = log2_hashmap_size
+        self.encoding_type = encoding_type
+        self.mlp_activation = mlp_activation
 
         per_level_scale = np.exp(
             (np.log(max_resolution) - np.log(base_resolution)) / (n_levels - 1)
@@ -122,7 +126,7 @@ class NGPRadianceField(torch.nn.Module):
         encoding_config={
             "otype": "HashGrid",
             "n_levels": n_levels,
-            "n_features_per_level": 2,
+            "n_features_per_level": n_features_per_level,
             "log2_hashmap_size": log2_hashmap_size,
             "base_resolution": base_resolution,
             "per_level_scale": per_level_scale,
