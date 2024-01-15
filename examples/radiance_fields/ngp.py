@@ -159,10 +159,10 @@ class NGPRadianceField(torch.nn.Module):
                 # separate pure PyTorch encoding
                 encoding = MultiResHashGrid(
                     num_dim,
-                    encoding_config["n_levels"],
-                    encoding_config["n_features_per_level"],
-                    encoding_config["log2_hashmap_size"],
-                    encoding_config["base_resolution"],
+                    n_levels,
+                    n_features_per_level,
+                    log2_hashmap_size,
+                    base_resolution,
                     max_resolution,
                 )
             network = tcnn.Network(  # "density MLP" (see paper)

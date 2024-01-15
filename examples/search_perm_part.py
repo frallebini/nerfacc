@@ -3,9 +3,9 @@ os.environ["WANDB_SILENT"] = "true"
 
 import warnings
 warnings.simplefilter(action="ignore", category=RuntimeWarning)
+warnings.simplefilter(action="ignore", category=FutureWarning)
 
 import itertools
-import math
 import numpy as np
 import torch
 import torch.nn.functional as F
@@ -14,7 +14,7 @@ import yaml
 
 from torch import Tensor
 from tqdm import tqdm
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from datasets.nerf_synthetic import SubjectLoader
 from nerfacc.estimators.occ_grid import OccGridEstimator
@@ -30,6 +30,24 @@ def get_state_dict(cfg: Dict[str, Any]) -> Dict[str, Tensor]:
     return sd_A
 
 
+def generate_binary_masks(bit_count: int) -> List[List[bool]]:
+    # Returns the list of binary masks of length bit_count.
+    # Example:
+    # >>> generate_binary_masks(3)
+    # [[F,F,F],[F,F,T],[F,T,F],[F,T,T],[T,F,F],[T,F,T],[T,T,F],[T,T,T]]
+    binary_masks = []
+    
+    def genbin(n: int, bm=[]) -> None:
+        if len(bm) == n:
+            binary_masks.append(bm)
+        else:
+            genbin(n, bm + [False])
+            genbin(n, bm + [True])
+
+    genbin(bit_count)
+    return binary_masks
+
+
 def search_perm(cfg: Dict[str, Any]) -> None:
     scene = cfg["scene"]
     sample_idx = cfg["sample_idx"]
@@ -39,6 +57,7 @@ def search_perm(cfg: Dict[str, Any]) -> None:
     n_levels = cfg["encoding"]["n_levels"]
     n_features_per_level = cfg["encoding"]["n_features_per_level"]
     base_resolution = cfg["encoding"]["base_resolution"]
+    max_resolution = cfg["encoding"]["max_resolution"]
 
     activation = cfg["mlp"]["activation"]
     use_viewdirs = cfg["mlp"]["use_viewdirs"]
@@ -78,6 +97,7 @@ def search_perm(cfg: Dict[str, Any]) -> None:
         aabb=estimator.aabbs[-1],
         use_viewdirs=use_viewdirs,
         base_resolution=base_resolution,
+        max_resolution=max_resolution,
         n_levels=n_levels,
         n_features_per_level=n_features_per_level,
         encoding_type=encoding,
@@ -87,68 +107,80 @@ def search_perm(cfg: Dict[str, Any]) -> None:
     ).cuda()
 
     psnr_best = 0
-    perms = itertools.permutations(range(n_features_per_level))
-    n_perms = math.factorial(n_features_per_level)
+    step = 0
+    masks = generate_binary_masks(n_levels)
+    perms = list(itertools.permutations(range(n_features_per_level)))
 
-    for step, perm in enumerate(tqdm(perms, total=n_perms)):
-        # reset state dict
-        sd = get_state_dict(cfg)
+    for m, mask in enumerate(tqdm(masks, desc="mask")):
+        for perm in tqdm(perms, desc="perm", leave=False):
+            # reset state dict
+            sd = get_state_dict(cfg)
 
-        # get grid
-        grid = sd["radiance_field"]["encoding.levels.0.embedding.weight"]
+            # get grid
+            grids = [sd["radiance_field"][f"encoding.levels.{i}.embedding.weight"].cpu() for i in range(n_levels)]
+            grids = np.array(grids, dtype="object")
 
-        # permute grid
-        grid = torch.index_select(grid, dim=1, index=torch.IntTensor(perm).cuda())
+            # permute grid
+            selected_grids = grids[mask]
+            swapped_grids = [torch.index_select(grid, dim=1, index=torch.IntTensor(perm)) for grid in selected_grids]
+            swapped_grids = np.array(swapped_grids, dtype="object")
+            grids[mask] = swapped_grids
 
-        # set grid
-        sd["radiance_field"][f"encoding.levels.0.embedding.weight"] = grid
-        estimator.load_state_dict(sd["estimator"])
-        radiance_field.load_state_dict(sd["radiance_field"])
+            # set grid
+            for i in range(n_levels):
+                sd["radiance_field"][f"encoding.levels.{i}.embedding.weight"] = grids[i].cuda()
+            estimator.load_state_dict(sd["estimator"])
+            radiance_field.load_state_dict(sd["radiance_field"])
 
-        # evaluation
-        estimator.eval()
-        radiance_field.eval()
+            # evaluation
+            estimator.eval()
+            radiance_field.eval()
 
-        with torch.no_grad():
-            data = test_dataset[sample_idx]
-            render_bkgd = data["color_bkgd"]
-            rays = data["rays"]
-            pixels = data["pixels"]
+            with torch.no_grad():
+                data = test_dataset[sample_idx]
+                render_bkgd = data["color_bkgd"]
+                rays = data["rays"]
+                pixels = data["pixels"]
 
-            try:
-                # rendering
-                rgb, _, _, _ = render_image_with_occgrid_test(
-                    1024,
-                    # scene
-                    radiance_field,
-                    estimator,
-                    rays,
-                    # rendering options
-                    near_plane=near_plane,
-                    render_step_size=render_step_size,
-                    render_bkgd=render_bkgd,
-                    cone_angle=cone_angle,
-                    alpha_thre=alpha_thre,
-                )
-            except RuntimeError:
-                tqdm.write(f"skipped permutation {perm}")
-                continue
+                try:
+                    # rendering
+                    rgb, _, _, _ = render_image_with_occgrid_test(
+                        1024,
+                        # scene
+                        radiance_field,
+                        estimator,
+                        rays,
+                        # rendering options
+                        near_plane=near_plane,
+                        render_step_size=render_step_size,
+                        render_bkgd=render_bkgd,
+                        cone_angle=cone_angle,
+                        alpha_thre=alpha_thre,
+                    )
+                except RuntimeError:
+                    tqdm.write(f"skipped permutation {perm} of binary mask {[int(b) for b in mask]}")
+                    continue
 
-            mse = F.mse_loss(rgb, pixels)
-            psnr = -10.0 * torch.log(mse) / np.log(10.0)
-            wandb.log({"test/psnr": psnr}, step=step)
-        
-        if psnr > psnr_best:
-            psnr_best = psnr
-            wandb.log({"test/psnr_best": psnr_best}, step=step)
-            torch.save(sd, f"{cfg_dir}/{scene}_perm.pt")
+                mse = F.mse_loss(rgb, pixels)
+                psnr = -10.0 * torch.log(mse) / np.log(10.0)
+                wandb.log({"test/psnr": psnr}, step=step)
+            
+            if psnr > psnr_best:
+                psnr_best = psnr
+                wandb.log({"test/psnr_best": psnr_best}, step=step)
+                torch.save(sd, f"{cfg_dir}/{scene}_perm.pt")
+
+            step += 1
+
+            if m == 0:
+                break
 
 
 if __name__ == "__main__":
     ##########################################
     scene = "chair"
     sample_idx = 42
-    cfg_dir = "ckpts/torch_sine_single_1_16_32"
+    cfg_dir = "ckpts/torch_sine_single_4_4_16"
     ##########################################
 
     with open(f"{cfg_dir}/cfg.yml", "r") as f:

@@ -76,6 +76,7 @@ encoding = cfg["encoding"]["type"]
 n_levels = cfg["encoding"]["n_levels"]
 n_features_per_level = cfg["encoding"]["n_features_per_level"]
 base_resolution = cfg["encoding"]["base_resolution"]
+max_resolution = cfg["encoding"]["max_resolution"]
 
 activation = cfg["mlp"]["activation"]
 use_single_mlp = cfg["mlp"]["use_single"]
@@ -173,6 +174,7 @@ if use_single_mlp:
         aabb=estimator.aabbs[-1],
         use_viewdirs=use_viewdirs,
         base_resolution=base_resolution,
+        max_resolution=max_resolution,
         n_levels=n_levels,
         n_features_per_level=n_features_per_level,
         encoding_type=encoding,
@@ -185,6 +187,7 @@ else:
         aabb=estimator.aabbs[-1],
         use_viewdirs=use_viewdirs,
         base_resolution=base_resolution,
+        max_resolution=max_resolution,
         n_levels=n_levels,
         n_features_per_level=n_features_per_level,
         encoding_type=encoding,

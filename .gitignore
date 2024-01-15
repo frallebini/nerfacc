@@ -125,6 +125,7 @@ ckpts
 
 outputs/
 data
+old
 
 benchmarks/*
 !benchmarks/barf
