@@ -166,7 +166,7 @@ class NGPRadianceField(torch.nn.Module):
                     max_resolution,
                 )
             network = tcnn.Network(  # "density MLP" (see paper)
-                n_input_dims=encoding.output_dim, 
+                n_input_dims=(encoding.n_output_dims if encoding_type == "cuda" else encoding.output_dim), 
                 n_output_dims=1 + self.geo_feat_dim, 
                 network_config=network_config,
                 seed=random.randint(0, sys.maxsize),

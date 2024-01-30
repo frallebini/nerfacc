@@ -83,7 +83,7 @@ class SubjectLoader(torch.utils.data.Dataset):
     ):
         super().__init__()
         assert split in self.SPLITS, "%s" % split
-        assert subject_id in self.SUBJECT_IDS, "%s" % subject_id
+        # assert subject_id in self.SUBJECT_IDS, "%s" % subject_id
         assert color_bkgd_aug in ["white", "black", "random"]
         self.split = split
         self.num_rays = num_rays
